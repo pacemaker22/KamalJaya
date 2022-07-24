@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: produk-mongo-depl
+spec:
+  replicas:
+  selector:
+    matchLabels:
+      app: produk-mongo
+  template:
+    metadata:
+      labels:
+        app: produk-mongo
+    spec:
+      containers:
+        - name: produk-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: produk-mongo-service
+spec:
+  selector:
+    app: produk-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

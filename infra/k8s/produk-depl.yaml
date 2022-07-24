@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: produk-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: produk
+  template:
+    metadata:
+      labels:
+        app: produk
+    spec:
+      containers:
+        - name: produk
+          image: pacemaker22/produk
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://produk-mongo-service:27017/produk'
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: "http://nats-service:4222"
+            - name: NATS_CLUSTER_ID
+              value: kamaljaya
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: produk-service
+spec:
+  selector:
+    app: produk
+  type: ClusterIP
+  ports:
+    - name: produk
+      protocol: TCP
+      port: 3001
+      targetPort: 3001

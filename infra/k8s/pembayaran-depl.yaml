@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pembayaran-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pembayaran
+  template:
+    metadata:
+      labels:
+        app: pembayaran
+    spec:
+      containers:
+        - name: pembayaran
+          image: pacemaker22/pembayaran
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://pembayaran-mongo-service:27017/pembayaran'
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: "http://nats-service:4222"
+            - name: NATS_CLUSTER_ID
+              value: kamaljaya
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: STRIPE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secret
+                  key: STRIPE_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pembayaran-service
+spec:
+  selector:
+    app: pembayaran
+  type: ClusterIP
+  ports:
+    - name: pembayaran
+      protocol: TCP
+      port: 3002
+      targetPort: 3002
