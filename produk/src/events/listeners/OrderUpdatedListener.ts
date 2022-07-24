@@ -66,6 +66,7 @@ export class OrderUpdatedListener extends Listener<OrderUpdatedEvent> {
         userId: produk.userId,
         gambar: produk.gambarItem.gambar1,
         warna: produk.warna,
+        ukuran: produk.ukuranItem,
         kategori: produk.kategori,
         deskripsi: produk.deskripsi,
         jumlahStock: produk.jumlahStock,
