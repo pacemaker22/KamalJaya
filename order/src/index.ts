@@ -48,7 +48,7 @@ const start = async () => {
 
 
     await mongoose.connect(process.env.MONGO_URI);
-    console.log("Terhubung ke mongoDB");
+    console.log("Terhubung ke mongoDB!!!");
   } catch (err) {
     console.error(err);
   }
