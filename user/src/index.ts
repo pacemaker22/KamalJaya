@@ -12,7 +12,7 @@ const start = async () => {
 
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log("Terhubung ke MongoDB");
+    console.log("Terhubung ke MongoDB!!");
   } catch (err) {
     console.error(err);
   }
