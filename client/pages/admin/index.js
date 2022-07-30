@@ -52,7 +52,7 @@ const AdminDashboard = ({
 		isReady && (
 			<>
 				<Head>
-					<title>Admin Dashboard | Aurapan</title>
+					<title>Admin Dashboard</title>
 				</Head>
 				<Container className="app-container admin-dashboard">
 					<h1>Admin Dashboard</h1>
