@@ -21,7 +21,7 @@ const start = async () => {
     );
 
     natsWrapper.client.on("close", () => {
-      console.log("Koneksi ke NATS terputus");
+      console.log("Koneksi ke NATS terputus!!");
       process.exit();
     });
 
