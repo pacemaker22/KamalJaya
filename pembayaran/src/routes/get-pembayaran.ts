@@ -12,9 +12,9 @@ import { Order } from "../models/order";
 const router = express.Router();
 
 router.get(
-  "/api/payments/:orderId",
+  "/api/pembayaran/:orderId",
   requireAuth,
-  [param("orderId").isMongoId().withMessage("Invalid MongoDB ObjectId")],
+  [param("orderId").isMongoId().withMessage("ObjectId MongoDB tidak valid")],
   validateRequest,
   async (req: Request, res: Response) => {
     const pembayaran = await Pembayaran.find({ orderId: req.params.orderId });

@@ -3,19 +3,19 @@ import { app } from "../../app";
 import { Produk } from "../../models/produk";
 import { natsWrapper } from "../../NatsWrapper";
 
-it("has a route handler listening to /api/products for post requests", async () => {
+it("testing route handler terhubung ke /api/produk untuk post produk", async () => {
   const response = await request(app).post("/api/produk").send({});
 
   expect(response.status).not.toEqual(404);
 });
 
-it("can NOT access if the user is NOT signing in", async () => {
+it("Tidak bisa mengakses jika user tidak login", async () => {
   const response = await request(app).post("/api/produk").send({});
 
   expect(response.status).toEqual(401);
 });
 
-it("can NOT access if the user who signed in is NOT an admin", async () => {
+it("Tidak bisa mengakses jika user login tapi bukan admin", async () => {
   const response = await request(app)
     .post("/api/produk")
     .set("Cookie", global.signin())
@@ -24,7 +24,7 @@ it("can NOT access if the user who signed in is NOT an admin", async () => {
   expect(response.status).toEqual(401);
 });
 
-it("returns a status other than 401 if the user is signed in", async () => {
+it("Mengembalikan status selain 401 jika user login", async () => {
   const response = await request(app)
     .post("/api/produk")
     .set("Cookie", global.adminSignin())
@@ -33,7 +33,7 @@ it("returns a status other than 401 if the user is signed in", async () => {
   expect(response.status).not.toEqual(401);
 });
 
-it("returns an error if an invalid nama is provided", async () => {
+it("Mengembalikan error jika nama produk tidak valid", async () => {
   await request(app)
     .post("/api/produk")
     .set("Cookie", global.adminSignin())
@@ -52,7 +52,7 @@ it("returns an error if an invalid nama is provided", async () => {
     .expect(400);
 });
 
-it("returns an error if an invalid harga is provided", async () => {
+it("Mengembalikan error jika harga tidak diisi atau tidak valid", async () => {
   await request(app)
     .post("/api/produk")
     .set("Cookie", global.adminSignin())
@@ -71,7 +71,7 @@ it("returns an error if an invalid harga is provided", async () => {
     .expect(400);
 });
 
-it("creates a product with valid inputs", async () => {
+it("Membuat produk dengan inputan yang valid", async () => {
   let produk = await Produk.find({});
   expect(produk.length).toEqual(0);
 
@@ -85,9 +85,9 @@ it("creates a product with valid inputs", async () => {
       harga: 40000,
       userId: "6214a0227e0d2db80ddb0860",
       ukuran: "xl",
-      gambar1: "./asset/sample.jpg",
-      warna: "White,Black",
-      kategori: "Dress",
+      gambar1: " ",
+      warna: "Merah",
+      kategori: "Alat tulis",
       deskripsi:
         "Turpis nunc eget lorem dolor. Augue neque gravida in fermentum et. Blandit libero volutpat sed cras ornare arcu dui vivamus. Amet venenatis urna cursus eget nunc scelerisque viverra mauris.",
       jumlahStock: 12,
@@ -100,7 +100,7 @@ it("creates a product with valid inputs", async () => {
   expect(produk[0].nama).toEqual(nama);
 });
 
-it("publishes an event", async () => {
+it("Publish event", async () => {
   await request(app)
     .post("/api/produk")
     .set("Cookie", global.adminSignin())
@@ -109,9 +109,9 @@ it("publishes an event", async () => {
       harga: 3000,
       userId: "6214a0227e0d2db80ddb0860",
       ukuran: "xl",
-      gambar1: "./asset/sample.jpg",
-      warna: "White,Black",
-      kategori: "Dress",
+      gambar1: " ",
+      warna: "Merah",
+      kategori: "Alat tulis",
       deskripsi:
         "Turpis nunc eget lorem dolor. Augue neque gravida in fermentum et. Blandit libero volutpat sed cras ornare arcu dui vivamus. Amet venenatis urna cursus eget nunc scelerisque viverra mauris.",
       jumlahStock: 12,

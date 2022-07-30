@@ -6,31 +6,31 @@ import { Produk } from "../../../models/produk";
 import { natsWrapper } from "../../../NatsWrapper";
 
 const setup = async () => {
-  // Create an instance of the listener
+  // menginisiasi listener dan isinya
   const listener = new OrderUpdatedListener(natsWrapper.client);
 
-  // Create and save a Produk
-  const produk = Produk.build({
-    nama: "Sample Dress",
-    harga: 1990,
-    userId: new mongoose.Types.ObjectId().toHexString(),
-    gambarItem: {
-      gambar1: "./asset/sample.jpg",
-    },
-    warna: "White,Black",
-    kategori: "Dress",
-    deskripsi:
-      "Turpis nunc eget lorem dolor. Augue neque gravida in fermentum et. Blandit libero volutpat sed cras ornare arcu dui vivamus. Amet venenatis urna cursus eget nunc scelerisque viverra mauris.",
-    jumlahStock: 3,
-    diPesan: true,
-  });
+  //membuat dan meyimpan produk
+    const produk = Produk.build({
+      nama: "Pulpen Faster",
+      harga: 25000,
+      userId: new mongoose.Types.ObjectId().toHexString(),
+      gambarItem: {
+        gambar1: " ",
+      },
+      ukuranItem: "XL",
+      warna: "Merah",
+      kategori: "Alat Tulis",
+      deskripsi: "Pulpen merk faster",
+      jumlahStock: 3,
+      diPesan: true,
+    });
 
   produk.set({ diPesan: true });
   await produk.save();
 
   const hargaItem = parseFloat(produk.harga.toFixed(2));
 
-  // Create the fake data event
+  // membuat data palsu untuk testing event
   const data: OrderUpdatedEvent["data"] = {
     id: new mongoose.Types.ObjectId().toHexString(),
     version: 1,
@@ -41,7 +41,8 @@ const setup = async () => {
       {
         nama: produk.nama,
         kuantitas: 2,
-        warnaItem: "white",
+        ukuran: "XL",
+        warna: "merah",
         gambar: produk.gambarItem.gambar1,
         harga: produk.harga,
         produkId: produk.id,
@@ -61,15 +62,15 @@ const setup = async () => {
   return { listener, produk, data, msg };
 };
 
-it("updates the order to updated status", async () => {
+it("melakukan update terhadap status dari order", async () => {
   const { listener, produk, data, msg } = await setup();
 
   await listener.onMessage(data, msg);
 
   const updatedProduk = await Produk.findById(produk.id);
 
-  expect(updatedProduk!.diPesan).toEqual(false);
-  expect(updatedProduk!.jumlahStock).toEqual(2);
+  expect(updatedProduk?.diPesan).toEqual(false);
+  expect(updatedProduk?.jumlahStock).toEqual(2);
 });
 
 it("acks the message", async () => {
@@ -79,7 +80,7 @@ it("acks the message", async () => {
   expect(msg.ack).toHaveBeenCalled();
 });
 
-it("publishes a product updated event", async () => {
+it("publish event tentang produk yang telah diupdate", async () => {
   const { listener, produk, data, msg } = await setup();
 
   await listener.onMessage(data, msg);

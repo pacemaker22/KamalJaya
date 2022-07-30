@@ -6,10 +6,10 @@ import { Produk } from "../../../models/produk";
 import { natsWrapper } from "../../../NatsWrapper";
 
 const setup = async () => {
-  // Create an instance of the listener
+  //membuat dan menginisiasi listener
   const listener = new OrderCreatedListener(natsWrapper.client);
 
-  // Create and save a product
+  // membuat dan menyimpan produk
   const produk = Produk.build({
     nama: "Pulpen Faster",
     harga: 25000,
@@ -17,10 +17,10 @@ const setup = async () => {
     gambarItem: {
       gambar1: " ",
     },
+    ukuranItem: "XL",
     warna: "Merah",
     kategori: "Alat Tulis",
-    deskripsi:
-      "Turpis nunc eget lorem dolor. Augue neque gravida in fermentum et. Blandit libero volutpat sed cras ornare arcu dui vivamus. Amet venenatis urna cursus eget nunc scelerisque viverra mauris.",
+    deskripsi: "Pulpen merk faster",
     jumlahStock: 3,
     diPesan: false,
   });
@@ -28,7 +28,7 @@ const setup = async () => {
 
   const hargaItem = parseFloat(produk.harga.toFixed(2));
 
-  // Create the fake data event
+  // Membuat data palsu untuk testing event
   const data: OrderCreatedEvent["data"] = {
     id: new mongoose.Types.ObjectId().toHexString(),
     version: 0,
@@ -37,9 +37,10 @@ const setup = async () => {
     expiresAt: new Date(),
     cart: [
       {
+        ukuran: "XL",
         nama: produk.nama,
-        kuantitas: 3,
-        warnaItem: "Merah",
+        kuantitas: 1,
+        warna: "Merah",
         gambar: produk.gambarItem.gambar1,
         harga: produk.harga,
         produkId: produk.id,
@@ -59,7 +60,7 @@ const setup = async () => {
   return { listener, produk, data, msg };
 };
 
-it("sets diPesan property of the product", async () => {
+it("melakukan set terhadap property diPesan menjadi true dari produk", async () => {
   const { listener, produk, data, msg } = await setup();
 
   await listener.onMessage(data, msg);
@@ -76,7 +77,7 @@ it("acks the message", async () => {
   expect(msg.ack).toHaveBeenCalled();
 });
 
-it("publishes a product updated event", async () => {
+it("publish event tentang produk yang telah diupdate", async () => {
   const { listener, produk, data, msg } = await setup();
 
   await listener.onMessage(data, msg);

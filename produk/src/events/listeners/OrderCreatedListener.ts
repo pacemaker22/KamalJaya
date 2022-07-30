@@ -26,10 +26,10 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     }
 
     for (let i = 0; i < items.length; i++) {
-      // Find the produk that the order is reserving
+      // mencari produk yang dipesan
       const produk = await Produk.findById(items[i].produkId);
 
-      // If no produk, throw error
+      // jika produk tidak ada throw error
       if (!produk) {
         throw new Error("produk not found");
       }
@@ -37,9 +37,9 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
       // Decrease the produk quantity in stock
       const jumlahStock = produk.jumlahStock - items[i].kuantitas;
 
-      // If the produk has been sold out of stock
+      // jika produk habis
       if (jumlahStock === 0) {
-        // Mark the produk as being reserved by setting its isReserved property
+        // jika produk masih memiliki stock yang tersisa (maka is diPesan adalah true)
         produk.set({
           jumlahStock: jumlahStock,
           diPesan: true,
@@ -48,7 +48,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
         produk.set({ jumlahStock: jumlahStock });
       }
 
-      // Save the produk
+      // menyimpan produk
       await produk.save();
 
       await new ProdukUpdatedPublisher(this.client).publish({
@@ -58,6 +58,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
         userId: produk.userId,
         gambar: produk.gambarItem.gambar1,
         warna: produk.warna,
+        ukuran: produk.ukuranItem,
         kategori: produk.kategori,
         deskripsi: produk.deskripsi,
         jumlahStock: produk.jumlahStock,

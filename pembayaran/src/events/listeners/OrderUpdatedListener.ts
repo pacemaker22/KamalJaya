@@ -20,7 +20,7 @@ export class OrderUpdatedListener extends Listener<OrderUpdatedEvent> {
 
     // If no order, throw error
     if (!order) {
-      throw new Error("Order not found");
+      throw new Error("Order tidak ditemukan");
     }
 
     if (order.isBayar) {

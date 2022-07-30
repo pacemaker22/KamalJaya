@@ -14,9 +14,9 @@ export class OrderUpdatedListener extends Listener<OrderUpdatedEvent> {
   queueGroupName = QueueGroupNames.PRODUK_SERVICE;
 
   async onMessage(data: OrderUpdatedEvent["data"], msg: Message) {
-    // Check order status
+    // Cek order status
     if (data.status !== "dibatalkan") {
-      // Do nothing, just ack the message
+      // mengirim message atau ack message
       return msg.ack();
     }
 
@@ -27,35 +27,35 @@ export class OrderUpdatedListener extends Listener<OrderUpdatedEvent> {
     }
 
     for (let i = 0; i < items.length; i++) {
-      // Find the produk that the order is reserving
+      // mencari produk yang dipesan
       const produk = await Produk.findById(items[i].produkId);
 
-      // If no produk, throw error
+      // jika produk tidak ada akan error
       if (!produk) {
         throw new Error("produk tidak ditemukan");
       }
 
-      // Increase the produk quantity in stock by return quantity from the cancelled order
+      // menambahkan kuantitas produk didalam stock pada saat order dibatalkan
       const jumlahStock = produk.jumlahStock + items[i].kuantitas;
 
       // If produk already reserved
       if (produk.jumlahStock === 0 && produk.diPesan === true) {
-        // Mark the produk as avaliable by setting its isReserved property
-        // and return quantity in stock to previous state
+        //  menandai produk dan set diPesan
+        // mengembalikan kuantitas produk di jumlah stock seperti semula(false)
         produk.set({
           jumlahStock: jumlahStock,
           diPesan: false,
         });
 
-        // Save the produk
+        //menyimpan produk
         await produk.save();
       }
 
-      // If the produk still have some stock left (isReserved is still false)
+      //jika produk masih memiliki stock yang tersisa (maka is diPesan adalah false)
       else {
         produk.set({ jumlahStock: jumlahStock });
 
-        // Save the produk
+        //menyimpan produk
         await produk.save();
       }
 

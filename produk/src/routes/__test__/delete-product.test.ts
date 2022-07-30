@@ -11,13 +11,13 @@ const createProduk = async () => {
     .post("/api/produk")
     .set("Cookie", global.adminSignin(adminId))
     .send({
-      nama: "Sample Dress",
-      harga: 99,
-      userId: adminId,
+      nama: "pulpen",
+      harga: 3000,
+      userId: "6214a0227e0d2db80ddb0860",
       ukuran: "xl",
-      gambar1: "./asset/sample.jpg",
-      warna: "White,Black",
-      kategori: "Dress",
+      gambar1: " ",
+      warna: "Merah",
+      kategori: "Alat tulis",
       deskripsi:
         "Turpis nunc eget lorem dolor. Augue neque gravida in fermentum et. Blandit libero volutpat sed cras ornare arcu dui vivamus. Amet venenatis urna cursus eget nunc scelerisque viverra mauris.",
       jumlahStock: 12,
@@ -25,7 +25,7 @@ const createProduk = async () => {
   return produk;
 };
 
-it("return 401 when make a request by user without authorized", async () => {
+it("Error 401 jika user melakukan request tanpa login", async () => {
   // Create a product
   await createProduk();
 
@@ -39,7 +39,7 @@ it("return 401 when make a request by user without authorized", async () => {
     .expect(401);
 });
 
-it("return 404 when the product data is not found", async () => {
+it("Error 404 jika data produk tidak ditemukan", async () => {
   // Create a product
   await createProduk();
 
@@ -53,7 +53,7 @@ it("return 404 when the product data is not found", async () => {
     .expect(404);
 });
 
-it("return 200 when make a successful request", async () => {
+it("Kode 200 jika request berhasil", async () => {
   // Create a product
   const produk = await createProduk();
 
@@ -70,7 +70,7 @@ it("return 200 when make a successful request", async () => {
   expect(deletedProduk).toEqual(null);
 });
 
-it("publishes an event", async () => {
+it("publish event", async () => {
   // Create a product
   const produk = await createProduk();
 

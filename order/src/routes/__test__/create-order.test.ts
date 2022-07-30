@@ -30,8 +30,9 @@ const buildJSON = (produk: ProdukDoc, userId: string) => {
       userId: userId,
       nama: produk.nama,
       kuantitas: 1,
-      warna: "white",
-      size: "M",
+      warna: "Merah",
+      ukuran: "M",
+      deskripsi: produk.deskripsi,
       gambar: produk.gambar,
       harga: produk.harga,
       jumlahStock: produk.jumlahStock,
@@ -118,7 +119,7 @@ it("mengembalikan error jika produk telah diorder", async () => {
   updatedProduk!.set({
     isReserved: true,
     jumlahStock:
-    produk.jumlahStock - JSON.parse(jsonCartItemsUser1)[0].qty,
+    produk.jumlahStock - JSON.parse(jsonCartItemsUser1)[0].kuantitas,
   });
   await updatedProduk!.save();
 

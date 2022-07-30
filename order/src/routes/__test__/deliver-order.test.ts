@@ -30,8 +30,9 @@ const buildJSON = (produk: ProdukDoc, userId: string) => {
       userId: userId,
       nama: produk.nama,
       kuantitas: 1,
-      warna: "white",
-      size: "M",
+      warna: "Merah",
+      ukuran: "M",
+      deskripsi: produk.deskripsi,
       gambar: produk.gambar,
       harga: produk.harga,
       jumlahStock: produk.jumlahStock,
@@ -50,7 +51,7 @@ const buildJSON = (produk: ProdukDoc, userId: string) => {
   return { jsonCartItems, jsonAlamatKirim, jsonMetodePembayaran };
 };
 
-it("mengembalikan error 401 ketika menandai order menjadi sampai oleh user", async () => {
+it("mengembalikan error 401 ketika mengubah order menjadi sampai oleh user", async () => {
   const produk = await buildProduk();
   const userId = new mongoose.Types.ObjectId().toHexString();
 
@@ -118,7 +119,7 @@ it("mengembalikan error 400 saat ingin mengubah tandai belum dibayar menjadi bay
   expect(updatedOrder!.tanggalKirim).toBeUndefined();
 });
 
-it( "menandai order menjadi dikirim oleh admin", async () => {
+it( "mengubah order menjadi dikirim oleh admin", async () => {
   const produk = await buildProduk();
   const userId = new mongoose.Types.ObjectId().toHexString();
 

@@ -3,14 +3,12 @@ import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 import { OrderStatus } from "@kjbuku/common";
 
 export interface CartAttrs {
-    userId: string;
     nama: string;
     kuantitas: number;
     warna: string;
     ukuran: string;
     gambar: string;
     harga: number;
-    jumlahStock: number;
     produkId: string;
 }
 
@@ -76,14 +74,12 @@ const orderSchema = new mongoose.Schema(
       },
       cart: [
         {
-            userId: { type: String, required: true },
             nama: { type: String, required: true },
             kuantitas: { type: Number, required: true },
             warna: { type: String, required: true },
             ukuran: { type: String, required: true },
             gambar: { type: String, required: true },
             harga: { type: Number, required: true },
-            jumlahStock: { type: Number, required: true },
             produkId: { type: String, required: true },
         },
       ],
@@ -118,7 +114,7 @@ const orderSchema = new mongoose.Schema(
       },
       isTerkirim: {
         type: Boolean,
-        default: false.valueOf,
+        default: false,
       },
       tanggalBayar: {
         type: Date,

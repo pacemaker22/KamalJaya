@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 
-jest.setTimeout(500000);
+jest.setTimeout(5000000);
 
 
 declare global {

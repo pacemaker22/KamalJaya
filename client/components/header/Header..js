@@ -1,0 +1,62 @@
+import React, { useEffect, useState } from "react";
+
+import mobileNavbar from "./mobileNavbar";
+import desktopNavbar from "./desktopNavbar";
+import useWindowSize from "../../hooks/useWindowSize";
+
+const Header = ({ currentUser, products, bestseller }) => {
+	const [numItems, setNumItems] = useState(0);
+	const [showNotification, setShowNotification] = useState(false);
+	const [onMobile, setOnMobile] = useState(true);
+
+	const { width } = useWindowSize();
+
+	// All category on the website
+	const productCategories = ["Top", "Bottom", "Dress", "Set", "Coat"];
+
+	useEffect(() => {
+		// Update cart item number every 0.1 second
+		const interval = setInterval(() => {
+			// Initial retrieve data from localStorage
+			const cartItems = localStorage.getItem("cartItems")
+				? JSON.parse(localStorage.getItem("cartItems"))
+				: [];
+
+			if (cartItems.length !== 0) {
+				setShowNotification(true);
+				setNumItems(cartItems.length);
+			} else if (cartItems.length === 0 || !cartItems) {
+				setShowNotification(false);
+				setNumItems(0);
+			}
+		}, 100);
+
+		if (width <= 992) {
+			setOnMobile(true);
+		} else {
+			setOnMobile(false);
+		}
+
+		return () => clearInterval(interval);
+	}, [width, currentUser]);
+
+	return onMobile ? (
+		<mobileNavbar
+			currentUser={currentUser}
+			numItems={numItems}
+			showNotification={showNotification}
+			productCategories={productCategories}
+		/>
+	) : (
+		<desktopNavbar
+			currentUser={currentUser}
+			produkToko={produkToko}
+			bestseller={bestseller}
+			numItems={numItems}
+			showNotification={showNotification}
+			productCategories={productCategories}
+		/>
+	);
+};
+
+export default Header;

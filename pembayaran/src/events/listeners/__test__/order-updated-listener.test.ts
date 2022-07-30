@@ -1,58 +1,57 @@
 import mongoose from "mongoose";
 import { Message } from "node-nats-streaming";
-import { OrderStatus, OrderUpdatedEvent } from "@thasup-dev/common";
+import { OrderStatus, OrderUpdatedEvent } from "@kjbuku/common";
 
 import { OrderUpdatedListener } from "../OrderUpdatedListener";
 import { natsWrapper } from "../../../NatsWrapper";
 import { Order } from "../../../models/order";
-import { Product } from "../../../models/product";
+import { Produk } from "../../../models/produk";
 
 const setup = async () => {
   const listener = new OrderUpdatedListener(natsWrapper.client);
 
   // Create and save a product
-  const product = Product.build({
+  const produk = Produk.build({
     id: new mongoose.Types.ObjectId().toHexString(),
-    title: "Sample Dress",
-    price: 1990,
+    nama: " Celana SD",
+    harga: 25000,
     userId: new mongoose.Types.ObjectId().toHexString(),
-    image: "./asset/sample.jpg",
-    colors: "White,Black",
-    sizes: "S,M,L",
-    countInStock: 1,
-    numReviews: 0,
-    rating: 0,
-    isReserved: false,
+    kategori: "Seragam SD",
+    deskripsi: "Seragam untuk anak SD",
+    gambar: "asdasdad",
+    warna: "Merah",
+    ukuran: "S,M,L",
+    jumlahStock: 1,
+    diPesan: false,
   });
-  await product.save();
+  await produk.save();
 
-  const itemsPrice = parseFloat(product.price.toFixed(2));
-  const taxPrice = parseFloat((product.price * 0.07).toFixed(2));
+  const hargaItem = parseFloat(produk.harga.toFixed(2));
 
   const order = Order.build({
     id: new mongoose.Types.ObjectId().toHexString(),
-    userId: "123456",
-    status: OrderStatus.Created,
+    status: OrderStatus.Dibuat,
+    userId: new mongoose.Types.ObjectId().toHexString(),
     version: 0,
-    paymentMethod: "stripe",
-    itemsPrice,
-    shippingPrice: 0,
-    taxPrice,
-    totalPrice: itemsPrice + taxPrice,
+    metodePembayaran: "stripe",
+    hargaItem,
+    ongkir: 0,
+    hargaTotal: hargaItem
   });
   await order.save();
+  
+  
 
   const data: OrderUpdatedEvent["data"] = {
     id: order.id,
-    status: OrderStatus.Cancelled,
+    status: OrderStatus.Dibatalkan,
     userId: order.userId,
     expiresAt: new Date(),
     version: 1,
-    paymentMethod: order.paymentMethod,
-    itemsPrice: order.itemsPrice,
-    shippingPrice: order.shippingPrice,
-    taxPrice: order.taxPrice,
-    totalPrice: order.totalPrice,
+    metodePembayaran: order.metodePembayaran,
+    hargaItem: order.hargaItem,
+    ongkir: order.ongkir,
+    hargaTotal: order.hargaTotal,
   };
 
   // @ts-ignore
@@ -63,17 +62,17 @@ const setup = async () => {
   return { listener, data, msg, order };
 };
 
-it("updates the status of the order", async () => {
+it("melakukan update terhadap status order", async () => {
   const { listener, data, msg, order } = await setup();
 
   await listener.onMessage(data, msg);
 
   const updatedOrder = await Order.findById(data.id);
 
-  expect(updatedOrder!.status).toEqual(OrderStatus.Cancelled);
+  expect(updatedOrder!.status).toEqual(OrderStatus.Dibatalkan);
 });
 
-it("acks the message", async () => {
+it("acks message ke event", async () => {
   const { listener, data, msg, order } = await setup();
 
   await listener.onMessage(data, msg);

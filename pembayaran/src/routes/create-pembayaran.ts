@@ -26,7 +26,7 @@ router.post(
       .not()
       .isEmpty()
       .isMongoId()
-      .withMessage("Invalid MongoDB ObjectId"),
+      .withMessage("ObjectId mongoDB tidak valid"),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -43,7 +43,7 @@ router.post(
     }
 
     if (order.status === OrderStatus.Dibatalkan) {
-      throw new BadRequestError("Cannot pay for an cancelled order");
+      throw new BadRequestError("Tidak dapat membayar order yang sudah dibatalkan");
     }
 
     if (order.metodePembayaran === "paypal") {
@@ -64,7 +64,7 @@ router.post(
     }
 
     const charge = await stripe.charges.create({
-      currency: "Rp",
+      currency: "idr",
       amount: order.hargaTotal * 100,
       source: token,
     });

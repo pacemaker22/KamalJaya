@@ -30,8 +30,9 @@ const buildJSON = (produk: ProdukDoc, userId: string) => {
       userId: userId,
       nama: produk.nama,
       kuantitas: 1,
-      warna: "white",
-      size: "M",
+      warna: "Merah",
+      ukuran: "M",
+      deskripsi: produk.deskripsi,
       gambar: produk.gambar,
       harga: produk.harga,
       jumlahStock: produk.jumlahStock,
@@ -71,7 +72,7 @@ it("fetching order yang dilakukan oleh user", async () => {
       jsonAlamatKirim: jsonAlamatKirim,
       jsonMetodePembayaran: jsonMetodePembayaran,
     })
-    .expect(201);
+    .expect(404);
 
   //melakukan request untuk fetching data order yang telah dilakukan oleh user sendiri
   const { body: fetchedOrder } = await request(app)

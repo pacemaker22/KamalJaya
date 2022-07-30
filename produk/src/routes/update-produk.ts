@@ -15,7 +15,7 @@ import { natsWrapper } from "../NatsWrapper";
 const router = express.Router();
 
 router.patch(
-  "/api/produck/:id",
+  "/api/produk/:id",
   requireAuth,
   adminUser,
   [param("id").isMongoId().withMessage("Invalid MongoDB ObjectId")],

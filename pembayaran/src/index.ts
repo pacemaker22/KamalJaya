@@ -12,7 +12,7 @@ const start = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error("JWT_KEY tidak ditemukan");
   }
-  if (!process.env.MONGO_URI_PAYMENT) {
+  if (!process.env.MONGO_URI) {
     throw new Error("MONGO_URI tidak ditemukan");
   }
   if (!process.env.NATS_CLIENT_ID) {
@@ -46,7 +46,7 @@ const start = async () => {
     new OrderCreatedListener(natsWrapper.client).listen();
     new OrderUpdatedListener(natsWrapper.client).listen();
 
-    await mongoose.connect(process.env.MONGO_URI_PAYMENT);
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("Terhubung ke MongoDB");
   } catch (err) {
     console.error(err);

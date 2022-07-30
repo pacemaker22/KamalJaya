@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
+jest.setTimeout(500000);
 
 declare global {
   var signin: (userId?: string) => string[];
@@ -16,7 +17,7 @@ process.env.STRIPE_KEY =
 let mongo: any;
 
 beforeAll(async () => {
-  process.env.JWT_KEY = "missiontothemoon";
+  process.env.JWT_KEY = "gondrong";
 
   mongo = await MongoMemoryServer.create();
   const mongoURI = mongo.getUri();

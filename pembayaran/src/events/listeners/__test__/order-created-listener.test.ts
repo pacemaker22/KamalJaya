@@ -1,46 +1,44 @@
 import mongoose from "mongoose";
 import { Message } from "node-nats-streaming";
-import { OrderCreatedEvent, OrderStatus } from "@thasup-dev/common";
+import { OrderCreatedEvent, OrderStatus } from "@kjbuku/common";
 
 import { natsWrapper } from "../../../NatsWrapper";
 import { OrderCreatedListener } from "../OrderCreatedListener";
 import { Order } from "../../../models/order";
-import { Product } from "../../../models/product";
+import { Produk } from "../../../models/produk";
 
 const setup = async () => {
   const listener = new OrderCreatedListener(natsWrapper.client);
 
   // Create and save a product
-  const product = Product.build({
+  const produk = Produk.build({
     id: new mongoose.Types.ObjectId().toHexString(),
-    title: "Sample Dress",
-    price: 1990,
+    nama: " Celana SD",
+    harga: 25000,
     userId: new mongoose.Types.ObjectId().toHexString(),
-    image: "./asset/sample.jpg",
-    colors: "White,Black",
-    sizes: "S,M,L",
-    countInStock: 1,
-    numReviews: 0,
-    rating: 0,
-    isReserved: false,
+    kategori: "Seragam SD",
+    deskripsi: "Seragam untuk anak SD",
+    gambar: "asdasdad",
+    warna: "Merah",
+    ukuran: "S,M,L",
+    jumlahStock: 1,
+    diPesan: false,
   });
-  await product.save();
+  await produk.save();
 
-  const itemsPrice = parseFloat(product.price.toFixed(2));
-  const taxPrice = parseFloat((product.price * 0.07).toFixed(2));
+  const hargaItem = parseFloat(produk.harga.toFixed(2));
 
   // Create the fake data event
   const data: OrderCreatedEvent["data"] = {
     id: new mongoose.Types.ObjectId().toHexString(),
-    status: OrderStatus.Created,
+    status: OrderStatus.Dibuat,
     userId: new mongoose.Types.ObjectId().toHexString(),
     expiresAt: new Date(),
     version: 0,
-    paymentMethod: "stripe",
-    itemsPrice,
-    shippingPrice: 0,
-    taxPrice,
-    totalPrice: itemsPrice + taxPrice,
+    metodePembayaran: "stripe",
+    hargaItem,
+    ongkir: 0,
+    hargaTotal: hargaItem
   };
 
   // @ts-ignore
@@ -58,7 +56,7 @@ it("replicates the order info", async () => {
 
   const order = await Order.findById(data.id);
 
-  expect(order!.totalPrice).toEqual(data.totalPrice);
+  expect(order!.hargaTotal).toEqual(data.hargaTotal);
 });
 
 it("acks the message", async () => {
