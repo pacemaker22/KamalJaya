@@ -24,7 +24,7 @@ it("Tidak bisa mengakses jika user login tapi bukan admin", async () => {
   expect(response.status).toEqual(401);
 });
 
-it("Mengembalikan status selain 401 jika user login", async () => {
+it("Mengembalikan status selain 401 jika user yang login adalah admin", async () => {
   const response = await request(app)
     .post("/api/produk")
     .set("Cookie", global.adminSignin())
@@ -58,7 +58,7 @@ it("Mengembalikan error jika harga tidak diisi atau tidak valid", async () => {
     .set("Cookie", global.adminSignin())
     .send({
       nama: "good",
-      harga: -10,
+      harga: -100,
     })
     .expect(400);
 
@@ -75,7 +75,7 @@ it("Membuat produk dengan inputan yang valid", async () => {
   let produk = await Produk.find({});
   expect(produk.length).toEqual(0);
 
-  const nama = "Sample Dress";
+  const nama = "Seragam SD";
 
   await request(app)
     .post("/api/products")
@@ -88,8 +88,7 @@ it("Membuat produk dengan inputan yang valid", async () => {
       gambar1: " ",
       warna: "Merah",
       kategori: "Alat tulis",
-      deskripsi:
-        "Turpis nunc eget lorem dolor. Augue neque gravida in fermentum et. Blandit libero volutpat sed cras ornare arcu dui vivamus. Amet venenatis urna cursus eget nunc scelerisque viverra mauris.",
+      deskripsi: "seragam anak sd beragam ukuran",
       jumlahStock: 12,
     })
     .expect(201);
@@ -112,8 +111,7 @@ it("Publish event", async () => {
       gambar1: " ",
       warna: "Merah",
       kategori: "Alat tulis",
-      deskripsi:
-        "Turpis nunc eget lorem dolor. Augue neque gravida in fermentum et. Blandit libero volutpat sed cras ornare arcu dui vivamus. Amet venenatis urna cursus eget nunc scelerisque viverra mauris.",
+      deskripsi: "seragam anak sd beragam ukuran",
       jumlahStock: 12,
     })
     .expect(201);
