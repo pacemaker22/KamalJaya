@@ -72,7 +72,7 @@ it("fetching order yang dilakukan oleh user", async () => {
       jsonAlamatKirim: jsonAlamatKirim,
       jsonMetodePembayaran: jsonMetodePembayaran,
     })
-    .expect(404);
+    .expect(201);
 
   //melakukan request untuk fetching data order yang telah dilakukan oleh user sendiri
   const { body: fetchedOrder } = await request(app)
