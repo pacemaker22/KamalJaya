@@ -66,12 +66,12 @@ router.post(
     //mencari produk yang dipesan pada keranjang
     for (let i = 0; i < cartItems.length; i++) {
       const produkDiPesan = await Produk.find({
-        _id: cartItems[i].productId,
+        _id: cartItems[i].produkId,
         diPesan: true,
       });
 
       // mencari produk yang ada didalam database
-      const databaseProduk = await Produk.findById(cartItems[i].productId);
+      const databaseProduk = await Produk.findById(cartItems[i].produkId);
 
       // If reservedProduct existed, throw an error
       if (produkDiPesan && produkDiPesan.length !== 0) {

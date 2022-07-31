@@ -101,27 +101,27 @@ it("fetching semua order yang dilakukan oleh admin", async () => {
       jsonMetodePembayaran: jsonMetodePembayaranuser2OrderOne,
     })
     .expect(201);
-
   const { body: orderTwo } = await request(app)
     .post("/api/orders")
     .set("Cookie", user2)
     .send({
-      jsonCartItems: jsonCartItemsuser2OrderTwo,
-      jsonAlamatKirim: jsonAlamatKirimuser2OrderTwo,
-      jsonMetodePembayaran: jsonMetodePembayaranuser2OrderTwo,
+    jsonCartItems: jsonCartItemsuser2OrderTwo,
+    jsonAlamatKirim: jsonAlamatKirimuser2OrderTwo,
+    jsonMetodePembayaran: jsonMetodePembayaranuser2OrderTwo,
     })
     .expect(201);
 
   //melakukan request untuk fecthing data oleh admin
   const response = await request(app)
-    .get(`/api/orders/myorders`)
+    .get("/api/orders/myorders")
     .set("Cookie", admin)
     .expect(200);
+    
 
   expect(response.body.length).toEqual(0);
 });
 
-it("fetches all orders for an particular user by the user himself", async () => {
+it("fetches semua order yang telah dilakukan oleh user itu sendiri", async () => {
   // membuat 3 produk
   const produk1 = await buildProduk();
   const produk2 = await buildProduk();
@@ -191,13 +191,15 @@ it("fetches all orders for an particular user by the user himself", async () => 
 
   //memastikan user 2 hanya mendapatkan informasi terkait ordernya sendiri
   expect(response.body.length).toEqual(2);
-  expect(response.body[0].id).toEqual(orderTwo.id);
-  expect(response.body[1].id).toEqual(orderThree.id);
+  expect(response.body[0].id).toEqual(orderOne.id);
+  expect(response.body[1].id).toEqual(orderTwo.id);
+  expect(response.body[2].id).toEqual(orderThree.id);
   expect(response.body[0].cart[0].produkId).toEqual(produk2.id);
   expect(response.body[1].cart[0].produkId).toEqual(produk3.id);
+  expect(response.body[2].cart[0].produkId).toEqual(produk1.id);
 });
 
-it("fetches all orders for an particular user by another user", async () => {
+it("fetching semua order untuk beberapa user dan semua user", async () => {
   //buat 3 produk
   const produk1 = await buildProduk();
   const produk2 = await buildProduk();

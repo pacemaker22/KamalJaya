@@ -14,7 +14,7 @@ const buildProduk = async () => {
     userId: new mongoose.Types.ObjectId().toHexString(),
     kategori: "Seragam SD",
     deskripsi: "Seragam untuk anak SD",
-    gambar: "asdasdad",
+    gambar: " ",
     warna: "Merah",
     ukuran: "S,M,L",
     jumlahStock: 1,
@@ -53,18 +53,50 @@ const buildJSON = (produk: ProdukDoc, userId: string) => {
 };
 
 it("Menandai order menjadi dibatalkan", async () => {
-  const produk = await buildProduk();
-  const userId = new mongoose.Types.ObjectId().toHexString();
+  const userId = global.signin();
 
-  const { jsonCartItems, jsonAlamatKirim, jsonMetodePembayaran } = buildJSON(
-    produk,
-    userId
-  );
+  const produk = Produk.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    nama: " Celana SD",
+    harga: 25000,
+    userId: new mongoose.Types.ObjectId().toHexString(),
+    kategori: "Seragam SD",
+    deskripsi: "Seragam untuk anak SD",
+    gambar: " ",
+    warna: "Merah",
+    ukuran: "S,M,L",
+    jumlahStock: 1,
+    diPesan: false,
+  });
+  await produk.save();
+  const jsonCartItems = JSON.stringify([
+    {
+      userId: userId,
+      nama: produk.nama,
+      kuantitas: 1,
+      warna: "Merah",
+      ukuran: "M",
+      deskripsi: produk.deskripsi,
+      gambar: produk.gambar,
+      harga: produk.harga,
+      jumlahStock: produk.jumlahStock,
+      produkId: produk.id,
+    },
+  ]);
+
+  const jsonAlamatKirim = JSON.stringify({
+    alamat: "cengkareng elok",
+    kota: "Jakarta",
+    kodePos: "11730",
+  });
+
+  const jsonMetodePembayaran = JSON.stringify("stripe");
 
   const { body: order } = await request(app)
     .post("/api/orders")
-    .set("Cookie", global.signin(userId))
+    .set("Cookie", userId)
     .send({
+      produkId: produk.id,
       jsonCartItems: jsonCartItems,
       jsonAlamatKirim: jsonAlamatKirim,
       jsonMetodePembayaran: jsonMetodePembayaran,
@@ -74,7 +106,7 @@ it("Menandai order menjadi dibatalkan", async () => {
   // membuat request untuk membatalkan order
   await request(app)
     .patch(`/api/orders/${order.id}`)
-    .set("Cookie", global.signin(userId))
+    .set("Cookie", userId)
     .send()
     .expect(200);
 

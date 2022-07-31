@@ -117,7 +117,7 @@ it("mengembalikan error jika produk telah diorder", async () => {
 
   const updatedProduk = await Produk.findById(produk.id);
   updatedProduk!.set({
-    isReserved: true,
+    diPesan: true,
     jumlahStock:
     produk.jumlahStock - JSON.parse(jsonCartItemsUser1)[0].kuantitas,
   });

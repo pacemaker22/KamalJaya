@@ -81,8 +81,8 @@ it("mengembalikan error 401 ketika mengubah order menjadi sampai oleh user", asy
   // memastikan order telah terkirim
   const updatedOrder = await Order.findById(order.id);
 
-  expect(updatedOrder!.tanggalSampai).toEqual(false);
-  expect(updatedOrder!.tanggalKirim).toBeUndefined();
+  expect(updatedOrder!.isTerkirim).toEqual(false);
+  expect(updatedOrder!.tanggalSampai).toBeUndefined();
 });
 
 it("mengembalikan error 400 saat ingin mengubah tandai belum dibayar menjadi bayar", async () => {
@@ -115,8 +115,8 @@ it("mengembalikan error 400 saat ingin mengubah tandai belum dibayar menjadi bay
   // memastikan order telah terkirim
   const updatedOrder = await Order.findById(order.id);
 
-  expect(updatedOrder!.tanggalSampai).toEqual(false);
-  expect(updatedOrder!.tanggalKirim).toBeUndefined();
+  expect(updatedOrder!.isTerkirim).toEqual(false);
+  expect(updatedOrder!.tanggalSampai).toBeUndefined();
 });
 
 it( "mengubah order menjadi dikirim oleh admin", async () => {
@@ -144,8 +144,8 @@ it( "mengubah order menjadi dikirim oleh admin", async () => {
 
   newOrder!.set({
     status: OrderStatus.Selesai,
-    isPaid: true,
-    paidAt: new Date(),
+    isBayar: true,
+    tanggalBayar: new Date(),
   });
   await newOrder!.save();
 
@@ -159,8 +159,8 @@ it( "mengubah order menjadi dikirim oleh admin", async () => {
   //memastikan order telah terkirim
   const updatedOrder = await Order.findById(order.id);
 
-  expect(updatedOrder!.tanggalSampai).toEqual(true);
-  expect(updatedOrder!.tanggalKirim).toBeDefined();
+  expect(updatedOrder!.isTerkirim).toEqual(true);
+  expect(updatedOrder!.tanggalSampai).toBeDefined();
 });
 
 it("melakukan update ke event order", async () => {
@@ -188,8 +188,8 @@ it("melakukan update ke event order", async () => {
 
   newOrder!.set({
     status: OrderStatus.Selesai,
-    isPaid: true,
-    paidAt: new Date(),
+    isBayar: true,
+    tanggalBayar: new Date(),
   });
   await newOrder!.save();
 
