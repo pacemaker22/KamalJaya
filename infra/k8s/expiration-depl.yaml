@@ -25,4 +25,4 @@ spec:
             - name: NATS_CLUSTER_ID
               value: kamaljaya
             - name: REDIS_HOST
-              value: expiration-redis-srv
+              value: expiration-redis-service

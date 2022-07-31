@@ -13,8 +13,7 @@ const createProduk = () => {
             gambar1: " ",
             warna: "Merah",
             kategori: "Alat tulis",
-            deskripsi:
-              "Turpis nunc eget lorem dolor. Augue neque gravida in fermentum et. Blandit libero volutpat sed cras ornare arcu dui vivamus. Amet venenatis urna cursus eget nunc scelerisque viverra mauris.",
+            deskripsi: "seragam anak sd beragam ukuran",
             jumlahStock: 12,
     
         });
