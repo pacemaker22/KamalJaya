@@ -8,7 +8,8 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   tls: 
-    - host: www.kamaljaya.xyz
+    - hosts: 
+        - www.kamaljaya.xyz
     secretName: echo-tls
   rules:
     - host: www.kamaljaya.xyz
