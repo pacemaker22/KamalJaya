@@ -9,11 +9,10 @@ it("memastikan harga bernilai positif", async () => {
     gambarItem: {
       gambar1: " ",
     },
-    ukuranItem: "XL",
     warna: "Merah",
     kategori: "Alat Tulis",
     deskripsi: "Pulpen merk faster",
-    jumlahStock: 3,
+    jumlahStok: 3,
     diPesan: false,
   });
   
@@ -49,11 +48,10 @@ it("increment untuk version dari produk", async () => {
     gambarItem: {
       gambar1: " ",
     },
-    ukuranItem: "XL",
     warna: "Merah",
     kategori: "Alat Tulis",
     deskripsi: "Pulpen merk faster",
-    jumlahStock: 3,
+    jumlahStok: 3,
     diPesan: false,
   });
 

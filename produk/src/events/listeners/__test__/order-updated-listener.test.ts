@@ -17,11 +17,10 @@ const setup = async () => {
       gambarItem: {
         gambar1: " ",
       },
-      ukuranItem: "XL",
       warna: "Merah",
       kategori: "Alat Tulis",
       deskripsi: "Pulpen merk faster",
-      jumlahStock: 3,
+      jumlahStok: 3,
       diPesan: true,
     });
 
@@ -41,7 +40,6 @@ const setup = async () => {
       {
         nama: produk.nama,
         kuantitas: 2,
-        ukuran: "XL",
         warna: "merah",
         gambar: produk.gambarItem.gambar1,
         harga: produk.harga,
@@ -70,7 +68,7 @@ it("melakukan update terhadap status dari order", async () => {
   const updatedProduk = await Produk.findById(produk.id);
 
   expect(updatedProduk?.diPesan).toEqual(false);
-  expect(updatedProduk?.jumlahStock).toEqual(2);
+  expect(updatedProduk?.jumlahStok).toEqual(2);
 });
 
 it("acks the message", async () => {

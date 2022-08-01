@@ -35,17 +35,17 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
       }
 
       // Decrease the produk quantity in stock
-      const jumlahStock = produk.jumlahStock - items[i].kuantitas;
+      const jumlahStok = produk.jumlahStok - items[i].kuantitas;
 
       // jika produk habis
-      if (jumlahStock === 0) {
+      if (jumlahStok === 0) {
         // jika produk masih memiliki stock yang tersisa (maka is diPesan adalah true)
         produk.set({
-          jumlahStock: jumlahStock,
+          jumlahStok: jumlahStok,
           diPesan: true,
         });
       } else {
-        produk.set({ jumlahStock: jumlahStock });
+        produk.set({ jumlahStok: jumlahStok });
       }
 
       // menyimpan produk
@@ -58,10 +58,9 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
         userId: produk.userId,
         gambar: produk.gambarItem.gambar1,
         warna: produk.warna,
-        ukuran: produk.ukuranItem,
         kategori: produk.kategori,
         deskripsi: produk.deskripsi,
-        jumlahStock: produk.jumlahStock,
+        jumlahStok: produk.jumlahStok,
         diPesan: produk.diPesan,
         version: produk.version,
       });

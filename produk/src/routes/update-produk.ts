@@ -27,10 +27,9 @@ router.patch(
         gambar1,
         gambar2,
         warna,
-        ukuranItem,
         kategori,
         deskripsi,
-        jumlahStock,
+        jumlahStok,
         diPesan,
     } = req.body;
 
@@ -51,10 +50,9 @@ router.patch(
     produk.gambarItem.gambar1 = gambar1 ?? produk.gambarItem.gambar1;
     produk.gambarItem.gambar2 = gambar2 ?? produk.gambarItem.gambar2;
     produk.warna = warna ?? produk.warna;
-    produk.ukuranItem = ukuranItem ?? produk.ukuranItem;
     produk.kategori = kategori ?? produk.kategori;
     produk.deskripsi = deskripsi ?? produk.deskripsi;
-    produk.jumlahStock = jumlahStock ?? produk.jumlahStock;
+    produk.jumlahStok = jumlahStok ?? produk.jumlahStok;
 
     await produk.save();
 
@@ -65,10 +63,9 @@ router.patch(
       userId: produk.userId,
       gambar: produk.gambarItem.gambar1,
       warna: warna,
-      ukuran: ukuranItem,
       kategori: kategori,
       deskripsi: deskripsi,
-      jumlahStock: jumlahStock,
+      jumlahStok: jumlahStok,
       diPesan: produk.diPesan,
       version: produk.version,
     });
