@@ -10,7 +10,7 @@ spec:
   tls: 
     - hosts: 
         - www.kamaljaya.xyz
-    secretName: echo-tls
+      secretName: echo-tls
   rules:
     - host: www.kamaljaya.xyz
       http:
