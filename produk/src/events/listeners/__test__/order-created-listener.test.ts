@@ -17,11 +17,10 @@ const setup = async () => {
     gambarItem: {
       gambar1: " ",
     },
-    ukuranItem: "XL",
     warna: "Merah",
     kategori: "Alat Tulis",
     deskripsi: "Pulpen merk faster",
-    jumlahStock: 3,
+    jumlahStok: 3,
     diPesan: false,
   });
   await produk.save();
@@ -37,7 +36,6 @@ const setup = async () => {
     expiresAt: new Date(),
     cart: [
       {
-        ukuran: "XL",
         nama: produk.nama,
         kuantitas: 1,
         warna: "Merah",

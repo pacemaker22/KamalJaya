@@ -36,14 +36,14 @@ export class OrderUpdatedListener extends Listener<OrderUpdatedEvent> {
       }
 
       // menambahkan kuantitas produk didalam stock pada saat order dibatalkan
-      const jumlahStock = produk.jumlahStock + items[i].kuantitas;
+      const jumlahStok = produk.jumlahStok + items[i].kuantitas;
 
       // If produk already reserved
-      if (produk.jumlahStock === 0 && produk.diPesan === true) {
+      if (produk.jumlahStok === 0 && produk.diPesan === true) {
         //  menandai produk dan set diPesan
         // mengembalikan kuantitas produk di jumlah stock seperti semula(false)
         produk.set({
-          jumlahStock: jumlahStock,
+          jumlahStok: jumlahStok,
           diPesan: false,
         });
 
@@ -53,7 +53,7 @@ export class OrderUpdatedListener extends Listener<OrderUpdatedEvent> {
 
       //jika produk masih memiliki stock yang tersisa (maka is diPesan adalah false)
       else {
-        produk.set({ jumlahStock: jumlahStock });
+        produk.set({ jumlahStok: jumlahStok });
 
         //menyimpan produk
         await produk.save();
@@ -66,10 +66,9 @@ export class OrderUpdatedListener extends Listener<OrderUpdatedEvent> {
         userId: produk.userId,
         gambar: produk.gambarItem.gambar1,
         warna: produk.warna,
-        ukuran: produk.ukuranItem,
         kategori: produk.kategori,
         deskripsi: produk.deskripsi,
-        jumlahStock: produk.jumlahStock,
+        jumlahStok: produk.jumlahStok,
         diPesan: produk.diPesan,
         version: produk.version,
       });

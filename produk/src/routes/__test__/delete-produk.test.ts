@@ -14,12 +14,11 @@ const createProduk = async () => {
       nama: "pulpen",
       harga: 3000,
       userId: "6214a0227e0d2db80ddb0860",
-      ukuran: "xl",
       gambar1: " ",
       warna: "Merah",
       kategori: "Alat tulis",
       deskripsi: "seragam anak sd beragam ukuran",
-      jumlahStock: 12,
+      jumlahStok: 12,
     });
   return produk;
 };

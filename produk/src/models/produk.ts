@@ -13,11 +13,10 @@ interface produkAttrs {
   harga: number;
   userId: string;
   gambarItem: GambarInterface;
-  ukuranItem: string;
   warna?: string;
   kategori: string;
   deskripsi: string;
-  jumlahStock: number;
+  jumlahStok: number;
   diPesan: boolean;
 }
 
@@ -35,11 +34,10 @@ interface ProdukDoc extends mongoose.Document {
   userId: string;
   orderId: string;
   gambarItem: GambarInterface;
-  ukuranItem: string;
   warna: string;
   kategori: string;
   deskripsi: string;
-  jumlahStock: number;
+  jumlahStok: number;
   diPesan: boolean;
   version: number;
   createdAt: string;
@@ -65,10 +63,6 @@ const produkSchema = new mongoose.Schema<ProdukDoc, ProdukModel>(
       gambar1: { type: String, required: true },
       gambar2: { type: String },
     },
-    ukuranItem: {
-      type: String,
-      required: true,
-    },
     warna: { type: String },
     kategori: {
       type: String,
@@ -78,7 +72,7 @@ const produkSchema = new mongoose.Schema<ProdukDoc, ProdukModel>(
       type: String,
       required: true,
     },
-    jumlahStock: {
+    jumlahStok: {
       type: Number,
       required: true,
       default: 1,

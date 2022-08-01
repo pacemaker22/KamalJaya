@@ -10,7 +10,6 @@ const router = express.Router();
 router.post(
   "/api/produk",
   requireAuth,
-  adminUser,
   [
     body("nama").not().isEmpty().withMessage("Nama is required"),
     body("harga")
@@ -25,10 +24,9 @@ router.post(
       gambar1,
       gambar2,
       warna,
-      ukuranItem,
       kategori,
       deskripsi,
-      jumlahStock,
+      jumlahStok,
     } = req.body;
 
     const produk = Produk.build({
@@ -40,10 +38,9 @@ router.post(
         gambar2,
       },
       warna,
-      ukuranItem,
       kategori,
       deskripsi,
-      jumlahStock,
+      jumlahStok,
       diPesan: false,
     });
 
@@ -55,10 +52,9 @@ router.post(
       userId: produk.userId,
       gambar: produk.gambarItem.gambar1,
       warna: produk.warna,
-      ukuran: produk.ukuranItem,
       kategori: produk.kategori,
       deskripsi: produk.deskripsi,
-      jumlahStock: produk.jumlahStock,
+      jumlahStok: produk.jumlahStok,
       diPesan: false,
       version: produk.version,
     });

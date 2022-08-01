@@ -11,20 +11,19 @@ it("Error 404 jika produk tidak ditemukan", async () => {
 it("mengembalikan produk jika produk tidak ditemukan", async () => {
     const harga = 30000;
     const nama = "Papan tulis";
-
+    const id = new mongoose.Types.ObjectId().toHexString();
     const response = await request(app)
     .post('/api/produk')
     .set("Cookie", global.adminSignin())
     .send({
       nama,
       harga,
-      userId: "6214a0227e0d2db80ddb0860",
-      ukuran: "xl",
+      id,
       gambar1: " ",
       warna: "Merah",
       kategori: "Alat tulis",
       deskripsi: "seragam anak sd beragam ukuran",
-      jumlahStock: 12,
+      jumlahStok: 12,
     })
     .expect(201);
 
