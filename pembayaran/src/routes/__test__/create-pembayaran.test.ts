@@ -91,7 +91,7 @@ it("Error 400 ketika membayar order yang telah dibatalkan", async () => {
 it("Kode 201 ketika memasukan inputan yang valid", async () => {
   const userId = new mongoose.Types.ObjectId().toHexString();
   const hargaItem = Math.floor(Math.random() * 100000);
-  // Create product and order
+  // membuat produk dan order
   const order = Order.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     status: OrderStatus.Dibuat,
@@ -119,13 +119,13 @@ it("Kode 201 ketika memasukan inputan yang valid", async () => {
   // expect(chargeOptions.amount).toEqual(order.totalPrice * 100);
   // expect(chargeOptions.currency).toEqual("usd");
 
-  const stripeCharges = await stripe.charges.list({ limit: 50 });
+  const stripeCharges = await stripe.charges.list({ limit: 50});
   const stripeCharge = stripeCharges.data.find((charge) => {
-    return charge.amount === order.hargaItem * 100;
+    return charge.amount === order.hargaItem
   });
 
   expect(stripeCharge).toBeDefined();
-  expect(stripeCharge!.currency).toEqual("idr");
+  expect(stripeCharge!.currency).toEqual("IDR");
 
   const pembayaran = await Pembayaran.findOne({
     orderId: order.id,

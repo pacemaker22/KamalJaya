@@ -33,9 +33,7 @@ interface ProdukDoc extends mongoose.Document {
   nama: string;
   harga: number;
   userId: string;
-  orderId: string;
   gambar: string;
-  ukuran: string;
   warna: string;
   kategori: string;
   deskripsi: string;
@@ -65,10 +63,6 @@ const produkSchema = new mongoose.Schema<ProdukDoc, ProdukModel>(
      type: String,
      required: true,
     },
-    ukuran: {
-      type: String,
-      required: true,
-    },
     warna: { type: String },
     kategori: {
       type: String,
@@ -87,9 +81,6 @@ const produkSchema = new mongoose.Schema<ProdukDoc, ProdukModel>(
       type: Boolean,
       required: true,
       default: false,
-    },
-    orderId: {
-      type: String,
     },
   },
   {
@@ -123,7 +114,6 @@ produkSchema.statics.build = (attrs: ProdukAttrs) => {
     nama: attrs.nama,
     userId: attrs.userId,
     gambar: attrs.gambar,
-    ukuran: attrs.ukuran,
     warna: attrs.warna,
     kategori: attrs.kategori,
     deskripsi: attrs.deskripsi,
