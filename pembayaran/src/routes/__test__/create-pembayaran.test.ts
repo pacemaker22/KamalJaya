@@ -125,7 +125,7 @@ it("Kode 201 ketika memasukan inputan yang valid", async () => {
   });
 
   expect(stripeCharge).toBeDefined();
-  expect(stripeCharge!.currency).toEqual("IDR");
+  expect(stripeCharge!.currency).toEqual("usd");
 
   const pembayaran = await Pembayaran.findOne({
     orderId: order.id,
