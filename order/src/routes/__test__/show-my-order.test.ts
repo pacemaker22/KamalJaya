@@ -28,7 +28,6 @@ const buildJSON = (produk: ProdukDoc, userId: string) => {
       nama: produk.nama,
       kuantitas: 1,
       warna: "Merah",
-      deskripsi: produk.deskripsi,
       gambar: produk.gambar,
       harga: produk.harga,
       jumlahStok: produk.jumlahStok,
@@ -52,7 +51,6 @@ it("fetching semua order yang dilakukan oleh admin", async () => {
   const produk1 = await buildProduk();
   const produk2 = await buildProduk();
   const produk3 = await buildProduk();
-
   const user1Id = new mongoose.Types.ObjectId().toHexString();
   const user2Id = new mongoose.Types.ObjectId().toHexString();
 
@@ -61,15 +59,15 @@ it("fetching semua order yang dilakukan oleh admin", async () => {
   const admin = global.adminSignin();
 
   const {
-    jsonCartItems: jsonCartItemsuser1,
-    jsonAlamatKirim: jsonAlamatKirimuser1,
-    jsonMetodePembayaran: jsonMetodePembayaranuser1,
+    jsonCartItems: jsonCartItemsUser1,
+    jsonAlamatKirim: jsonAlamatKirimUser1,
+    jsonMetodePembayaran: jsonMetodePembayaranUser1,
   } = buildJSON(produk1, user1Id);
 
   const {
-    jsonCartItems: jsonCartItemsuser2OrderOne,
-    jsonAlamatKirim: jsonAlamatKirimuser2OrderOne,
-    jsonMetodePembayaran: jsonMetodePembayaranuser2OrderOne,
+    jsonCartItems: jsonCartItemsUser2OrderOne,
+    jsonAlamatKirim: jsonAlamatKirimUser2OrderOne,
+    jsonMetodePembayaran: jsonMetodePembayaranUser2OrderOne,
   } = buildJSON(produk2, user2Id);
 
   const {
@@ -83,9 +81,9 @@ it("fetching semua order yang dilakukan oleh admin", async () => {
     .post("/api/orders")
     .set("Cookie", user1)
     .send({
-      jsonCartItems: jsonCartItemsuser1,
-      jsonAlamatKirim: jsonAlamatKirimuser1,
-      jsonMetodePembayaran: jsonMetodePembayaranuser1,
+      jsonCartItems: jsonCartItemsUser1,
+      jsonAlamatKirim: jsonAlamatKirimUser1,
+      jsonMetodePembayaran: jsonMetodePembayaranUser1,
     })
     .expect(201);
 
@@ -94,9 +92,9 @@ it("fetching semua order yang dilakukan oleh admin", async () => {
     .post("/api/orders")
     .set("Cookie", user2)
     .send({
-      jsonCartItems: jsonCartItemsuser2OrderOne,
-      jsonAlamatKirim: jsonAlamatKirimuser2OrderOne,
-      jsonMetodePembayaran: jsonMetodePembayaranuser2OrderOne,
+      jsonCartItems: jsonCartItemsUser2OrderOne,
+      jsonAlamatKirim: jsonAlamatKirimUser2OrderOne,
+      jsonMetodePembayaran: jsonMetodePembayaranUser2OrderOne,
     })
     .expect(201);
   const { body: orderTwo } = await request(app)
@@ -109,9 +107,9 @@ it("fetching semua order yang dilakukan oleh admin", async () => {
     })
     .expect(201);
 
-  //melakukan request untuk fecthing data oleh admin
+  //melakukan request untuk fecthing data order oleh admin
   const response = await request(app)
-    .get("/api/orders/myorders")
+    .get(`/api/orders/myorders`)
     .set("Cookie", admin)
     .expect(200);
     
@@ -132,19 +130,19 @@ it("fetches semua order yang telah dilakukan oleh user itu sendiri", async () =>
   const user2 = global.signin(user2Id);
 
   const {
-    jsonCartItems: jsonCartItemsuser1,
-    jsonAlamatKirim: jsonAlamatKirimuser1,
-    jsonMetodePembayaran: jsonMetodePembayaranuser1,
+    jsonCartItems: jsonCartItemsUser1,
+    jsonAlamatKirim: jsonAlamatKirimUser1,
+    jsonMetodePembayaran: jsonMetodePembayaranUser1,
   } = buildJSON(produk1, user1Id);
 
   const {
-    jsonCartItems: jsonCartItemsuser2OrderOne,
-    jsonAlamatKirim: jsonAlamatKirimuser2OrderOne,
-    jsonMetodePembayaran: jsonMetodePembayaranuser2OrderOne,
+    jsonCartItems: jsonCartItemsUser2OrderOne,
+    jsonAlamatKirim: jsonAlamatKirimUser2OrderOne,
+    jsonMetodePembayaran: jsonMetodePembayaranUser2OrderOne,
   } = buildJSON(produk2, user2Id);
 
   const {
-    jsonCartItems: jsonCartItemsuser2OrderTwo,
+    jsonCartItems: jsonCartItemsUser2OrderTwo,
     jsonAlamatKirim: jsonAlamatKirimuser2OrderTwo,
     jsonMetodePembayaran: jsonMetodePembayaranuser2OrderTwo,
   } = buildJSON(produk3, user2Id);
@@ -154,9 +152,9 @@ it("fetches semua order yang telah dilakukan oleh user itu sendiri", async () =>
     .post("/api/orders")
     .set("Cookie", user1)
     .send({
-      jsonCartItems: jsonCartItemsuser1,
-      jsonAlamatKirim: jsonAlamatKirimuser1,
-      jsonMetodePembayaran: jsonMetodePembayaranuser1,
+      jsonCartItems: jsonCartItemsUser1,
+      jsonAlamatKirim: jsonAlamatKirimUser1,
+      jsonMetodePembayaran: jsonMetodePembayaranUser1,
     })
     .expect(201);
 
@@ -165,9 +163,9 @@ it("fetches semua order yang telah dilakukan oleh user itu sendiri", async () =>
     .post("/api/orders")
     .set("Cookie", user2)
     .send({
-      jsonCartItems: jsonCartItemsuser2OrderOne,
-      jsonAlamatKirim: jsonAlamatKirimuser2OrderOne,
-      jsonMetodePembayaran: jsonMetodePembayaranuser2OrderOne,
+      jsonCartItems: jsonCartItemsUser2OrderOne,
+      jsonAlamatKirim: jsonAlamatKirimUser2OrderOne,
+      jsonMetodePembayaran: jsonMetodePembayaranUser2OrderOne,
     })
     .expect(201);
 
@@ -175,7 +173,7 @@ it("fetches semua order yang telah dilakukan oleh user itu sendiri", async () =>
     .post("/api/orders")
     .set("Cookie", user2)
     .send({
-      jsonCartItems: jsonCartItemsuser2OrderTwo,
+      jsonCartItems: jsonCartItemsUser2OrderTwo,
       jsonAlamatKirim: jsonAlamatKirimuser2OrderTwo,
       jsonMetodePembayaran: jsonMetodePembayaranuser2OrderTwo,
     })
@@ -191,10 +189,8 @@ it("fetches semua order yang telah dilakukan oleh user itu sendiri", async () =>
   expect(response.body.length).toEqual(2);
   expect(response.body[0].id).toEqual(orderOne.id);
   expect(response.body[1].id).toEqual(orderTwo.id);
-  expect(response.body[2].id).toEqual(orderThree.id);
   expect(response.body[0].cart[0].produkId).toEqual(produk2.id);
   expect(response.body[1].cart[0].produkId).toEqual(produk3.id);
-  expect(response.body[2].cart[0].produkId).toEqual(produk1.id);
 });
 
 it("fetching semua order untuk beberapa user dan semua user", async () => {
@@ -210,15 +206,15 @@ it("fetching semua order untuk beberapa user dan semua user", async () => {
   const user2 = global.signin(user2Id);
 
   const {
-    jsonCartItems: jsonCartItemsuser1,
-    jsonAlamatKirim: jsonAlamatKirimuser1,
-    jsonMetodePembayaran: jsonMetodePembayaranuser1,
+    jsonCartItems: jsonCartItemsUser1,
+    jsonAlamatKirim: jsonAlamatKirimUser1,
+    jsonMetodePembayaran: jsonMetodePembayaranUser1,
   } = buildJSON(produk1, user1Id);
 
   const {
-    jsonCartItems: jsonCartItemsuser2OrderOne,
-    jsonAlamatKirim: jsonAlamatKirimuser2OrderOne,
-    jsonMetodePembayaran: jsonMetodePembayaranuser2OrderOne,
+    jsonCartItems: jsonCartItemsUser2OrderOne,
+    jsonAlamatKirim: jsonAlamatKirimUser2OrderOne,
+    jsonMetodePembayaran: jsonMetodePembayaranUser2OrderOne,
   } = buildJSON(produk2, user2Id);
 
   const {
@@ -232,9 +228,9 @@ it("fetching semua order untuk beberapa user dan semua user", async () => {
     .post("/api/orders")
     .set("Cookie", user1)
     .send({
-      jsonCartItems: jsonCartItemsuser1,
-      jsonAlamatKirim: jsonAlamatKirimuser1,
-      jsonMetodePembayaran: jsonMetodePembayaranuser1,
+      jsonCartItems: jsonCartItemsUser1,
+      jsonAlamatKirim: jsonAlamatKirimUser1,
+      jsonMetodePembayaran: jsonMetodePembayaranUser1,
     })
     .expect(201);
 
@@ -243,9 +239,9 @@ it("fetching semua order untuk beberapa user dan semua user", async () => {
     .post("/api/orders")
     .set("Cookie", user2)
     .send({
-      jsonCartItems: jsonCartItemsuser2OrderOne,
-      jsonAlamatKirim: jsonAlamatKirimuser2OrderOne,
-      jsonMetodePembayaran: jsonMetodePembayaranuser2OrderOne,
+      jsonCartItems: jsonCartItemsUser2OrderOne,
+      jsonAlamatKirim: jsonAlamatKirimUser2OrderOne,
+      jsonMetodePembayaran: jsonMetodePembayaranUser2OrderOne,
     })
     .expect(201);
 

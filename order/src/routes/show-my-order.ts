@@ -10,9 +10,7 @@ import { Order } from "../models/order";
 const router = express.Router();
 
 router.get(
-  "/api/orders/myorders",
-  requireAuth,
-  async (req: Request, res: Response) => {
+  "/api/orders/myorders", requireAuth, async (req: Request, res: Response) => {
     let orders = await Order.find({ userId: req.currentUser!.id });
 
     if (!orders || orders.length === 0) {
