@@ -23,7 +23,7 @@ app.use(createProdukRouter);
 app.use(updateProdukRouter);
 app.use(deleteProdukRouter);
 app.use(getProdukRouter);
-
+ 
 
 app.all("*", async (req, res) => {
 	throw new NotFoundError();

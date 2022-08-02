@@ -28,7 +28,6 @@ const buildJSON = (produk: ProdukDoc, userId: string) => {
       nama: produk.nama,
       kuantitas: 1,
       warna: "Merah",
-      deskripsi: produk.deskripsi,
       gambar: produk.gambar,
       harga: produk.harga,
       jumlahStok: produk.jumlahStok,
@@ -52,12 +51,12 @@ it("fetching semua order yang dilakukan oleh admin", async () => {
   const produk1 = await buildProduk();
   const produk2 = await buildProduk();
   const produk3 = await buildProduk();
-
   const user1Id = new mongoose.Types.ObjectId().toHexString();
   const user2Id = new mongoose.Types.ObjectId().toHexString();
 
   const user1 = global.signin(user1Id);
   const user2 = global.signin(user2Id);
+  const admin = global.adminSignin();
 
   const {
     jsonCartItems: jsonCartItemsUser1,
@@ -110,8 +109,8 @@ it("fetching semua order yang dilakukan oleh admin", async () => {
 
   //melakukan request untuk fecthing data order oleh admin
   const response = await request(app)
-    .get("/api/orders/myorders")
-    .set("Cookie", global.adminSignin())
+    .get(`/api/orders/myorders`)
+    .set("Cookie", admin)
     .expect(200);
     
 
