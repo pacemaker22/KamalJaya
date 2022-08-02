@@ -38,7 +38,7 @@ router.patch(
       throw new BadRequestError("Order belum dibayarkan");
     }
 
-    order.set({ isDelivered: true, deliveredAt: new Date() });
+    order.set({ isTerkirim: true, tanggalKirim: new Date() });
     await order.save();
 
     //publish event bahwa order batal
@@ -55,7 +55,7 @@ router.patch(
       hargaTotal: order.hargaTotal,
       isBayar: order.isBayar,
       isTerkirim: true,
-      tanggalSampai: new Date(),
+      tanggalKirim: new Date(),
     });
 
     res.status(200).send(order);

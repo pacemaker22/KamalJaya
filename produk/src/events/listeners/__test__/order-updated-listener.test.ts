@@ -20,7 +20,7 @@ const setup = async () => {
       warna: "Merah",
       kategori: "Alat Tulis",
       deskripsi: "Pulpen merk faster",
-      jumlahStok: 3,
+      jumlahStok: 0,
       diPesan: true,
     });
 
@@ -39,7 +39,7 @@ const setup = async () => {
     cart: [
       {
         nama: produk.nama,
-        kuantitas: 2,
+        kuantitas: 10,
         warna: "merah",
         gambar: produk.gambarItem.gambar1,
         harga: produk.harga,
@@ -68,7 +68,7 @@ it("melakukan update terhadap status dari order", async () => {
   const updatedProduk = await Produk.findById(produk.id);
 
   expect(updatedProduk?.diPesan).toEqual(false);
-  expect(updatedProduk?.jumlahStok).toEqual(2);
+  expect(updatedProduk?.jumlahStok).toEqual(10);
 });
 
 it("acks the message", async () => {

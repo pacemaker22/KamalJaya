@@ -28,7 +28,7 @@ it("fetching semua daftar produk", async () => {
 
     const respon = await request(app).get("/api/produk").send().expect(200);
 
-    expect(respon.body.length).toEqual(3);
+    expect(respon.body.length).toEqual(4);
 
 })    
 

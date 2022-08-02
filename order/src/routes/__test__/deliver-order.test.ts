@@ -16,8 +16,7 @@ const buildProduk = async () => {
     deskripsi: "Seragam untuk anak SD",
     gambar: "asdasdad",
     warna: "Merah",
-    ukuran: "S,M,L",
-    jumlahStock: 1,
+    jumlahStok: 10,
     diPesan: false,
   });
   await produk.save();
@@ -31,11 +30,10 @@ const buildJSON = (produk: ProdukDoc, userId: string) => {
       nama: produk.nama,
       kuantitas: 1,
       warna: "Merah",
-      ukuran: "M",
       deskripsi: produk.deskripsi,
       gambar: produk.gambar,
       harga: produk.harga,
-      jumlahStock: produk.jumlahStock,
+      jumlahStok: produk.jumlahStok,
       produkId: produk.id,
     },
   ]);
@@ -82,7 +80,7 @@ it("mengembalikan error 401 ketika mengubah order menjadi sampai oleh user", asy
   const updatedOrder = await Order.findById(order.id);
 
   expect(updatedOrder!.isTerkirim).toEqual(false);
-  expect(updatedOrder!.tanggalSampai).toBeUndefined();
+  expect(updatedOrder!.tanggalKirim).toBeUndefined();
 });
 
 it("mengembalikan error 400 saat ingin mengubah tandai belum dibayar menjadi bayar", async () => {
@@ -116,7 +114,7 @@ it("mengembalikan error 400 saat ingin mengubah tandai belum dibayar menjadi bay
   const updatedOrder = await Order.findById(order.id);
 
   expect(updatedOrder!.isTerkirim).toEqual(false);
-  expect(updatedOrder!.tanggalSampai).toBeUndefined();
+  expect(updatedOrder!.tanggalKirim).toBeUndefined();
 });
 
 it( "mengubah order menjadi dikirim oleh admin", async () => {
@@ -160,7 +158,7 @@ it( "mengubah order menjadi dikirim oleh admin", async () => {
   const updatedOrder = await Order.findById(order.id);
 
   expect(updatedOrder!.isTerkirim).toEqual(true);
-  expect(updatedOrder!.tanggalSampai).toBeDefined();
+  expect(updatedOrder!.tanggalKirim).toBeDefined();
 });
 
 it("melakukan update ke event order", async () => {

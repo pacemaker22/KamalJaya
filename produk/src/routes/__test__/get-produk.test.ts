@@ -5,20 +5,19 @@ import { app } from "../../app";
 it("Error 404 jika produk tidak ditemukan", async () => {
     const id = new mongoose.Types.ObjectId().toHexString();
   
-    await request(app).get(`/api/products/${id}`).send().expect(404);
+    await request(app).get(`/api/produk/${id}`).send().expect(404);
   });
 
-it("mengembalikan produk jika produk tidak ditemukan", async () => {
+it("mengembalikan produk jika produk ditemukan", async () => {
     const harga = 30000;
     const nama = "Papan tulis";
-    const id = new mongoose.Types.ObjectId().toHexString();
     const response = await request(app)
     .post('/api/produk')
     .set("Cookie", global.adminSignin())
     .send({
       nama,
       harga,
-      id,
+      userId: "6214a0227e0d2db80ddb0860",
       gambar1: " ",
       warna: "Merah",
       kategori: "Alat tulis",
@@ -28,7 +27,7 @@ it("mengembalikan produk jika produk tidak ditemukan", async () => {
     .expect(201);
 
     const responProduk = await request(app)
-        .get(`api/produk/${response.body.id}`)
+        .get(`/api/produk/${response.body.id}`)
         .send()
         .expect(200);
 

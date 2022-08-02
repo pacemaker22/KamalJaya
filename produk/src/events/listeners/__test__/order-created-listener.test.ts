@@ -37,7 +37,7 @@ const setup = async () => {
     cart: [
       {
         nama: produk.nama,
-        kuantitas: 1,
+        kuantitas: 3,
         warna: "Merah",
         gambar: produk.gambarItem.gambar1,
         harga: produk.harga,
