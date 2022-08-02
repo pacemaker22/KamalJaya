@@ -191,10 +191,8 @@ it("fetches semua order yang telah dilakukan oleh user itu sendiri", async () =>
   expect(response.body.length).toEqual(2);
   expect(response.body[0].id).toEqual(orderOne.id);
   expect(response.body[1].id).toEqual(orderTwo.id);
-  expect(response.body[2].id).toEqual(orderThree.id);
   expect(response.body[0].cart[0].produkId).toEqual(produk2.id);
   expect(response.body[1].cart[0].produkId).toEqual(produk3.id);
-  expect(response.body[2].cart[0].produkId).toEqual(produk1.id);
 });
 
 it("fetching semua order untuk beberapa user dan semua user", async () => {
