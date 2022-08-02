@@ -13,8 +13,7 @@ const buildProduk = async () => {
     deskripsi: "Seragam untuk anak SD",
     gambar: "asdasdad",
     warna: "Merah",
-    ukuran: "S,M,L",
-    jumlahStock: 1,
+    jumlahStok: 1,
     diPesan: false,
   });
   await produk.save();
@@ -29,11 +28,10 @@ const buildJSON = (produk: ProdukDoc, userId: string) => {
       nama: produk.nama,
       kuantitas: 1,
       warna: "Merah",
-      ukuran: "M",
       deskripsi: produk.deskripsi,
       gambar: produk.gambar,
       harga: produk.harga,
-      jumlahStock: produk.jumlahStock,
+      jumlahStok: produk.jumlahStok,
       produkId: produk.id,
     },
   ]);

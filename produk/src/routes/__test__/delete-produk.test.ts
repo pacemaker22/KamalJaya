@@ -24,12 +24,12 @@ const createProduk = async () => {
 };
 
 it("Error 401 jika user melakukan request tanpa login", async () => {
-  // Create a product
+  // membuat produk
   await createProduk();
 
   const anotherProdukId = new mongoose.Types.ObjectId().toHexString();
 
-  // Make a delete request
+  // melakukan delete 
   await request(app)
     .delete(`/api/produk/${anotherProdukId}`)
     .set("Cookie", global.signin())
@@ -38,12 +38,12 @@ it("Error 401 jika user melakukan request tanpa login", async () => {
 });
 
 it("Error 404 jika data produk tidak ditemukan", async () => {
-  // Create a product
+  // membuat produk
   await createProduk();
 
   const anotherProdukId = new mongoose.Types.ObjectId().toHexString();
 
-  // Make a delete request
+  // melakukan delete
   await request(app)
     .delete(`/api/produk/${anotherProdukId}`)
     .set("Cookie", global.adminSignin())
@@ -52,10 +52,10 @@ it("Error 404 jika data produk tidak ditemukan", async () => {
 });
 
 it("Kode 200 jika request berhasil", async () => {
-  // Create a product
+  // membuat produk
   const produk = await createProduk();
 
-  // Make a delete request
+  // melakukan delete
   await request(app)
     .delete(`/api/produk/${produk.id}`)
     .set("Cookie", global.adminSignin())
@@ -69,10 +69,10 @@ it("Kode 200 jika request berhasil", async () => {
 });
 
 it("publish event", async () => {
-  // Create a product
+  // membuat produk
   const produk = await createProduk();
 
-  // Make a delete request
+  // melakukan delete
   await request(app)
     .delete(`/api/produk/${produk.id}`)
     .set("Cookie", global.adminSignin())

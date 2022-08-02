@@ -20,8 +20,7 @@ const setup = async () => {
     deskripsi: "Seragam untuk anak SD",
     gambar: "asdasdad",
     warna: "Merah",
-    ukuran: "S,M,L",
-    jumlahStock: 1,
+    jumlahStok: 1,
     diPesan: false,
   };
 
@@ -46,7 +45,7 @@ it("membuat dan menyimpan produk", async () => {
   expect(produk).toBeDefined();
   expect(produk!.nama).toEqual(data.nama);
   expect(produk!.kategori).toEqual(data.kategori);
-  expect(produk!.jumlahStock).toEqual(data.jumlahStock);
+  expect(produk!.jumlahStok).toEqual(data.jumlahStok);
 });
 
 it("acks the message", async () => {

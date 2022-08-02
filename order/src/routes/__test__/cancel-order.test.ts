@@ -16,8 +16,7 @@ const buildProduk = async () => {
     deskripsi: "Seragam untuk anak SD",
     gambar: " ",
     warna: "Merah",
-    ukuran: "S,M,L",
-    jumlahStock: 1,
+    jumlahStok: 1,
     diPesan: false,
   });
   await produk.save();
@@ -31,12 +30,11 @@ const buildJSON = (produk: ProdukDoc, userId: string) => {
       userId: userId,
       nama: produk.nama,
       kuantitas: 1,
-      warna: "Merah",
-      ukuran: "M",
       deskripsi: produk.deskripsi,
       gambar: produk.gambar,
       harga: produk.harga,
-      jumlahStock: produk.jumlahStock,
+      warna: produk.warna,
+      jumlahStok: produk.jumlahStok,
       produkId: produk.id,
     },
   ]);
@@ -53,48 +51,16 @@ const buildJSON = (produk: ProdukDoc, userId: string) => {
 };
 
 it("Menandai order menjadi dibatalkan", async () => {
-  const userId = global.signin();
-
-  const produk = Produk.build({
-    id: new mongoose.Types.ObjectId().toHexString(),
-    nama: " Celana SD",
-    harga: 25000,
-    userId: new mongoose.Types.ObjectId().toHexString(),
-    kategori: "Seragam SD",
-    deskripsi: "Seragam untuk anak SD",
-    gambar: " ",
-    warna: "Merah",
-    ukuran: "S,M,L",
-    jumlahStock: 1,
-    diPesan: false,
-  });
-  await produk.save();
-  const jsonCartItems = JSON.stringify([
-    {
-      userId: userId,
-      nama: produk.nama,
-      kuantitas: 1,
-      warna: "Merah",
-      ukuran: "M",
-      deskripsi: produk.deskripsi,
-      gambar: produk.gambar,
-      harga: produk.harga,
-      jumlahStock: produk.jumlahStock,
-      produkId: produk.id,
-    },
-  ]);
-
-  const jsonAlamatKirim = JSON.stringify({
-    alamat: "cengkareng elok",
-    kota: "Jakarta",
-    kodePos: "11730",
-  });
-
-  const jsonMetodePembayaran = JSON.stringify("stripe");
+  const produk = await buildProduk();
+  const userId = new mongoose.Types.ObjectId().toHexString();
+  const { jsonCartItems, jsonAlamatKirim, jsonMetodePembayaran } = buildJSON(
+    produk,
+    userId
+  )
 
   const { body: order } = await request(app)
     .post("/api/orders")
-    .set("Cookie", userId)
+    .set("Cookie", global.signin(userId))
     .send({
       produkId: produk.id,
       jsonCartItems: jsonCartItems,
@@ -106,7 +72,7 @@ it("Menandai order menjadi dibatalkan", async () => {
   // membuat request untuk membatalkan order
   await request(app)
     .patch(`/api/orders/${order.id}`)
-    .set("Cookie", userId)
+    .set("Cookie", global.signin(userId))
     .send()
     .expect(200);
 

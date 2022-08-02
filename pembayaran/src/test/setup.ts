@@ -68,8 +68,8 @@ global.adminSignin = (userId?: string) => {
   // Build a JWT payload.  { id, email }
   const payload = {
     id: userId || new mongoose.Types.ObjectId().toHexString(),
-    email: "test@test.com",
-    password: "password",
+    email: "admin@admin.com",
+    password: "admin",
     isAdmin: true,
   };
 

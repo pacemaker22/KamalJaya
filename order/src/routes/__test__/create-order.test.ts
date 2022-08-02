@@ -15,8 +15,7 @@ const buildProduk = async () => {
     deskripsi: "Seragam untuk anak SD",
     gambar: "asdasdad",
     warna: "Merah",
-    ukuran: "S,M,L",
-    jumlahStock: 1,
+    jumlahStok: 1,
     diPesan: false,
   });
   await produk.save();
@@ -31,11 +30,10 @@ const buildJSON = (produk: ProdukDoc, userId: string) => {
       nama: produk.nama,
       kuantitas: 1,
       warna: "Merah",
-      ukuran: "M",
       deskripsi: produk.deskripsi,
       gambar: produk.gambar,
       harga: produk.harga,
-      jumlahStock: produk.jumlahStock,
+      jumlahStok: produk.jumlahStok,
       produkId: produk.id,
     },
   ]);
@@ -62,8 +60,7 @@ it("mengembalikan error jika ada produk yang tidak tersedia di cart", async () =
     deskripsi: "Seragam untuk anak SD",
     gambar: "asdasdad",
     warna: "Merah",
-    ukuran: "S,M,L",
-    jumlahStock: 1,
+    jumlahStok: 1,
     diPesan: false,
   };
 
@@ -118,8 +115,8 @@ it("mengembalikan error jika produk telah diorder", async () => {
   const updatedProduk = await Produk.findById(produk.id);
   updatedProduk!.set({
     diPesan: true,
-    jumlahStock:
-    produk.jumlahStock - JSON.parse(jsonCartItemsUser1)[0].kuantitas,
+    jumlahStok:
+    produk.jumlahStok - JSON.parse(jsonCartItemsUser1)[0].kuantitas,
   });
   await updatedProduk!.save();
 
@@ -136,7 +133,7 @@ it("mengembalikan error jika produk telah diorder", async () => {
   console.log();
 
   expect(updatedProduk?.diPesan).toEqual(true);
-  expect(updatedProduk?.jumlahStock).toEqual(0);
+  expect(updatedProduk?.jumlahStok).toEqual(0);
 });
 
 it("Memesan Produk", async () => {

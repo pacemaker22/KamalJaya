@@ -21,7 +21,7 @@ it("Tidak bisa mengakses jika user login tapi bukan admin", async () => {
     .set("Cookie", global.signin())
     .send({});
 
-  expect(response.status).toEqual(401);
+  expect(response.status).toEqual(400);
 });
 
 it("Mengembalikan status selain 401 jika user yang login adalah admin", async () => {
@@ -78,7 +78,7 @@ it("Membuat produk dengan inputan yang valid", async () => {
   const nama = "Seragam SD";
 
   await request(app)
-    .post("/api/products")
+    .post("/api/produk")
     .set("Cookie", global.adminSignin())
     .send({
       nama,
@@ -94,7 +94,7 @@ it("Membuat produk dengan inputan yang valid", async () => {
 
     produk = await Produk.find({});
   expect(produk.length).toEqual(1);
-  expect(produk[0].harga).toEqual(20000);
+  expect(produk[0].harga).toEqual(40000);
   expect(produk[0].nama).toEqual(nama);
 });
 
