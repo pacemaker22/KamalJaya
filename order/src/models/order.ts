@@ -9,6 +9,7 @@ export interface CartAttrs {
     warna: string;
     gambar: string;
     harga: number;
+    jumlahStok: number;
     produkId: string;
 }
 
@@ -79,6 +80,7 @@ const orderSchema = new mongoose.Schema(
             kuantitas: { type: Number, required: true },
             warna: { type: String, required: true },
             gambar: { type: String, required: true },
+            jumlahStok: { type: String, required: true },
             harga: { type: Number, required: true },
             produkId: { type: String, required: true },
         },

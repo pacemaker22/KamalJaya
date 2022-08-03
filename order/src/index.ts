@@ -5,7 +5,6 @@ import { ProdukCreatedListener } from "./events/listeners/ProdukCreatedListener"
 import { ProdukUpdatedListener } from "./events/listeners/ProdukUpdatedListener";
 import { ExpirationCompletedListener } from "./events/listeners/ExpirationCompletedListener";
 import { PembayaranCreatedListener } from "./events/listeners/PembayaranCreatedListener";
-import { ProdukDeletedListener } from "./events/listeners/ProdukDeletedListener";
 
 const start = async () => {
   console.log("Starting...");
@@ -42,7 +41,6 @@ const start = async () => {
 
     new ProdukCreatedListener(natsWrapper.client).listen();
     new ProdukUpdatedListener(natsWrapper.client).listen();
-    new ProdukDeletedListener(natsWrapper.client).listen();
     new ExpirationCompletedListener(natsWrapper.client).listen();
     new PembayaranCreatedListener(natsWrapper.client).listen();
 

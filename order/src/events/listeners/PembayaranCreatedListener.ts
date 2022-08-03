@@ -36,7 +36,6 @@ export class PembayaranCreatedListener extends Listener<PembayaranCreatedEvent> 
       userId: order.userId,
       expiresAt: order.expiresAt,
       version: order.version,
-      cart: order.cart,
       metodePembayaran: order.metodePembayaran,
       hargaItem: order.hargaItem,
       ongkir: order.ongkir,
