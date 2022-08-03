@@ -11,7 +11,7 @@ const buildProduk = async () => {
     userId: new mongoose.Types.ObjectId().toHexString(),
     kategori: "Seragam SD",
     deskripsi: "Seragam untuk anak SD",
-    gambar: "asdasdad",
+    gambar: " ",
     warna: "Merah",
     jumlahStok: 1,
     diPesan: false,
@@ -187,8 +187,8 @@ it("fetches semua order yang telah dilakukan oleh user itu sendiri", async () =>
 
   //memastikan user 2 hanya mendapatkan informasi terkait ordernya sendiri
   expect(response.body.length).toEqual(2);
-  expect(response.body[0].id).toEqual(orderOne.id);
-  expect(response.body[1].id).toEqual(orderTwo.id);
+  expect(response.body[0].id).toEqual(orderTwo.id);
+  expect(response.body[1].id).toEqual(orderThree.id);
   expect(response.body[0].cart[0].produkId).toEqual(produk2.id);
   expect(response.body[1].cart[0].produkId).toEqual(produk3.id);
 });

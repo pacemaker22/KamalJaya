@@ -117,6 +117,7 @@ produkSchema.statics.build = (attrs: ProdukAttrs) => {
     nama: attrs.nama,
     userId: attrs.userId,
     gambar: attrs.gambar,
+    harga: attrs.harga,
     warna: attrs.warna,
     kategori: attrs.kategori,
     deskripsi: attrs.deskripsi,
