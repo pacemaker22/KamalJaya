@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(
 	cookieSession({
 		signed: false,
-	})
+	}) 
 );
 app.use(currentUser);
 
