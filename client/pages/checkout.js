@@ -5,7 +5,7 @@ import Link from "next/link";
 import Head from "next/head";
 
 import useRequest from "../hooks/use-request";
-import CheckoutSteps from "../components/cart/CheckoutSteps";
+import CheckoutSteps from "../components/cart/checkoutStep";
 import NextImage from "../components/common/NextImage";
 import Message from "../components/common/Message";
 
