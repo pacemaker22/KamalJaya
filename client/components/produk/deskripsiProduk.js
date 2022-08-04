@@ -2,8 +2,6 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { Col, Nav, Row } from "react-bootstrap";
 
-import SizeChart from "./SizeChart";
-
 const DynamicTabContainer = dynamic(
 	() => import("react-bootstrap/TabContainer"),
 	{
@@ -64,14 +62,6 @@ const deskripsiProduk = ({ product }) => {
 								</p>
 								<p>Fames ac turpis egestas integer eget aliquet.</p>
 							</div>
-						</DynamicTabPane>
-
-						<DynamicTabPane
-							className="deskripsi-panel"
-							eventKey="size-chart"
-							title="Size Chart"
-						>
-							<SizeChart />
 						</DynamicTabPane>
 					</DynamicTabContent>
 				</Col>
