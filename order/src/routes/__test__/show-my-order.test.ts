@@ -53,10 +53,11 @@ it("fetching semua order yang dilakukan oleh admin", async () => {
   const produk3 = await buildProduk();
   const user1Id = new mongoose.Types.ObjectId().toHexString();
   const user2Id = new mongoose.Types.ObjectId().toHexString();
+  const adminId = new mongoose.Types.ObjectId().toHexString();
 
   const user1 = global.signin(user1Id);
   const user2 = global.signin(user2Id);
-  const admin = global.adminSignin();
+  const admin = global.adminSignin(adminId);
 
   const {
     jsonCartItems: jsonCartItemsUser1,
