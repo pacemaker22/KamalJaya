@@ -13,9 +13,6 @@ import {
 	faShieldHalved,
 	faStar,
 } from "@fortawesome/free-solid-svg-icons";
-
-import WishList from "../../components/account/WishList";
-import Support from "../../components/account/Support";
 import daftarOrderUser from "../../components/akun/daftarOrderUser";
 import editAlamat from "../../components/akun/editAlamat";
 import editPassword from "../../components/akun/editPassword";
@@ -117,10 +114,6 @@ const Dashboard = ({ currentUser, users, myOrders, produkToko }) => {
 
 									<DynamicTabPane eventKey="wishlist">
 										<WishList produkToko={produkToko} />
-									</DynamicTabPane>
-
-									<DynamicTabPane eventKey="support">
-										<Support user={user} />
 									</DynamicTabPane>
 								</DynamicTabContent>
 							</Col>
