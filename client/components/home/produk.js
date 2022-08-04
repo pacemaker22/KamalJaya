@@ -24,9 +24,9 @@ const produk = ({
 	};
 
 	const myLoader = ({ src, quality }) => {
-		const isCloudinary = src.includes('aurapan');
+		const isCloudinary = src.includes('kamaljaya');
 		if (isCloudinary) {
-			return `https://res.cloudinary.com/thasup/image/upload/${src}`;
+			return `https://res.cloudinary.com/pacemaker/image/upload/${src}`;
 		} else {
 			return `https://www.dropbox.com/s/${src}?raw=1&q=${quality || 20}`;
 		}

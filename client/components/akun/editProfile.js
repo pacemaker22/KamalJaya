@@ -55,7 +55,7 @@ const editProfile = ({ user }) => {
 
 	const myLoader = ({ src, width, quality }) => {
 		if (src[0] === "v") {
-			return `https://res.cloudinary.com/thasup/image/upload/${src}`;
+			return `https://res.cloudinary.com/pacemaker/image/upload/${src}`;
 		} else {
 			return `${src}&q=${quality || 40}`;
 		}

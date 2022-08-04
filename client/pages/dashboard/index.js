@@ -14,11 +14,6 @@ import {
 	faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
-import EditProfile from "../../components/account/EditProfile";
-import EditSecurity from "../../components/account/EditSecurity";
-import EditAddress from "../../components/account/EditAddress";
-import UserOrderList from "../../components/account/UserOrderList";
-import UserReviewList from "../../components/account/UserReviewList";
 import WishList from "../../components/account/WishList";
 import Support from "../../components/account/Support";
 import daftarOrderUser from "../../components/akun/daftarOrderUser";
@@ -91,7 +86,7 @@ const Dashboard = ({ currentUser, users, myOrders, produkToko }) => {
 
 									<Nav.Item>
 										<Nav.Link eventKey="orders">
-											<FontAwesomeIcon icon={faBasketShopping} /> Orders
+											<FontAwesomeIcon icon={faBasketShopping} /> Order
 										</Nav.Link>
 									</Nav.Item>
 									<Nav.Item>
@@ -108,20 +103,22 @@ const Dashboard = ({ currentUser, users, myOrders, produkToko }) => {
 										<editProfile user={user} />
 									</DynamicTabPane>
 
-									<DynamicTabPane eventKey="security">
+									<DynamicTabPane eventKey="password">
 										<editPassword user={user} />
 									</DynamicTabPane>
 
-									<DynamicTabPane eventKey="address">
+									<DynamicTabPane eventKey="alamat">
 										<editAlamat user={user} />
 									</DynamicTabPane>
 
 									<DynamicTabPane eventKey="orders">
 										<daftarOrderUser myOrders={myOrders} />
 									</DynamicTabPane>
+
 									<DynamicTabPane eventKey="wishlist">
 										<WishList produkToko={produkToko} />
 									</DynamicTabPane>
+
 									<DynamicTabPane eventKey="support">
 										<Support user={user} />
 									</DynamicTabPane>

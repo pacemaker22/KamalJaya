@@ -25,7 +25,7 @@ const daftarOrder = ({ orders, users }) => {
 							<th>WAKTU</th>
 							<th>TOTAL</th>
 							<th>METODE</th>
-							<th>KADALUWARSA</th>
+							<th>EXPIRED</th>
 							<th>TERBAYAR</th>
 							<th>TERKIRIM</th>
 							<th>DETAIL</th>

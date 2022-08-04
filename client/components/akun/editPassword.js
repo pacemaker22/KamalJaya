@@ -10,7 +10,6 @@ const editPassword = ({ user }) => {
 	const [password, setPassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 	const [confirmNewPassword, setConfirmNewPassword] = useState("");
-
 	const [message, setMessage] = useState(null);
 	const [showErrors, setShowErrors] = useState(false);
 	const [loadingUpdate, setLoadingUpdate] = useState(false);
@@ -22,12 +21,9 @@ const editPassword = ({ user }) => {
 		body: {
 			email,
 			isAdmin: user.isAdmin,
-			name: user.name,
-			image: user.image,
-			gender: user.gender,
-			age: user.age,
-			bio: user.bio,
-			jsonShippingAddress: user.shippingAddress,
+			nama: user.nama,
+			foto: user.foto,
+			jsonAlamatKirim: user.jsonAlamatKirim,
 		},
 		onSuccess: () => {
 			setUpdateSukses(true);
@@ -61,7 +57,7 @@ const editPassword = ({ user }) => {
 		setLoadingUpdate(true);
 
 		if (newPassword !== confirmNewPassword) {
-			setMessage("Password do not match");
+			setMessage("Password tidak sama");
 			setLoadingUpdate(false);
 		} else if (newPassword !== "") {
 			doRequest({ password: password, newPassword: newPassword });
@@ -75,14 +71,14 @@ const editPassword = ({ user }) => {
 			<Row>
 				{message && <Message variant="danger">{message}</Message>}
 				{showErrors ? errors : null}
-				{updateSuccess && <Message variant="success">Profile Updated</Message>}
+				{updateSuccess && <Message variant="success">update profile</Message>}
 
 				<Col>
 					<Form.Group controlId="email" className="mb-3">
 						<Form.Label>Email address</Form.Label>
 						<Form.Control
 							type="email"
-							placeholder="Enter email"
+							placeholder="Masukkan Alamat email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 						></Form.Control>
@@ -92,7 +88,7 @@ const editPassword = ({ user }) => {
 						<Form.Label>Password</Form.Label>
 						<Form.Control
 							type="password"
-							placeholder="Enter password"
+							placeholder="masukan password"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 						></Form.Control>
@@ -102,7 +98,7 @@ const editPassword = ({ user }) => {
 						<Form.Label>New Password</Form.Label>
 						<Form.Control
 							type="password"
-							placeholder="Enter password"
+							placeholder="masukan password baru anda"
 							value={newPassword}
 							onChange={(e) => setNewPassword(e.target.value)}
 						></Form.Control>
@@ -112,7 +108,7 @@ const editPassword = ({ user }) => {
 						<Form.Label>Confirm New Password</Form.Label>
 						<Form.Control
 							type="password"
-							placeholder="Confirm new password"
+							placeholder="konfirmasi password baru anda"
 							value={confirmNewPassword}
 							onChange={(e) => setConfirmNewPassword(e.target.value)}
 						></Form.Control>

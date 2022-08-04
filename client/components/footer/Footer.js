@@ -15,7 +15,7 @@ const Footer = () => {
 					<Col className="d-flex flex-column justify-content-center">
 						<Row className="upper-footer">
 							<Col className="topic-footer" id="discover">
-								<h5>Category</h5>
+								<h5>Kategori</h5>
 								<ul className="footer-lists">
 									<li>
 										<Link href="/produk/buku">
