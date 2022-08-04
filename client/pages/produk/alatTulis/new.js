@@ -32,7 +32,7 @@ const alatTulisBaru = ({ produkToko, currentUser }) => {
 	return (
 		<>
 			<Head>
-				<title>New Arrivals Bottoms | Aurapan</title>
+				<title>Alat Tulis Baru</title>
 			</Head>
 			{loading ? (
 				<div
@@ -53,7 +53,7 @@ const alatTulisBaru = ({ produkToko, currentUser }) => {
 							<Breadcrumb.Item>Alat Tulis</Breadcrumb.Item>
 						</Link>
                         <Link href="/produk/alatTulis/new" passHref>
-							<Breadcrumb.Item>New Arrivals</Breadcrumb.Item>
+							<Breadcrumb.Item>Baru</Breadcrumb.Item>
 						</Link>
 					</Breadcrumb>
 
