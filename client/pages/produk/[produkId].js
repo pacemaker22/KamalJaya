@@ -6,44 +6,35 @@ import Head from "next/head";
 
 import Loader from "../../components/common/Loader";
 import NextImage from "../../components/common/NextImage";
-import ProductImageSwiper from "../../components/product/ProductImageSwiper";
-import ColorSelector from "../../components/common/ColorSelector";
-import SizeSelector from "../../components/common/SizeSelector";
-import ProductDescription from "../../components/product/ProductDescription";
+import produkImageSwiper from "../../components/produk/produkImageSwiper"
+import warnaSelector from "../../components/common/warnaSelector";
+import deskripsiProduk from "../../components/produk/deskripsiProduk"
 import AddToCart from "../../components/common/AddToCart";
-import QuantitySelector from "../../components/common/QuantitySelector";
+import kuantitasSelector from "../../components/common/kuantitasSelector"
 import useWindowSize from "../../hooks/useWindowSize";
 
-const productDetail = ({ products, users, currentUser, myOrders }) => {
-	const { productId } = useRouter().query;
-
-	const [quantity, setQuantity] = useState(1);
-	const [color, setColor] = useState(null);
-	const [size, setSize] = useState(null);
-	const [discountFactor, setDiscountFactor] = useState(1);
-
-	const [initialImage, setInitialImage] = useState(false);
-	const [imageArray, setImageArray] = useState([]);
-	const [imageEvent, setImageEvent] = useState(null);
-
-	const [isPurchase, setIsPurchase] = useState(false);
+const productDetail = ({ produkToko, users, currentUser, myOrders }) => {
+	const { produkId } = useRouter().query;
+	const [kuantitas, setKuantitas] = useState(1);
+	const [warna, setWarna] = useState(null);
+	const [gambarAwal, setGambarAwal] = useState(false);
+	const [gambarArray, setGambarArray] = useState([]);
+	const [eventGambar, setEventGambar] = useState(null);
 	const [onMobile, setOnMobile] = useState(false);
 
-	const [screenWidth, setScreenWidth] = useState(0);
 
-	const product = products.find((product) => product.id === productId);
-	const categoryParams = `${product?.category.toLowerCase()}${product?.category === "Dress" ? "es" : "s"
+	const produk = produkToko.find((produk) => produk.id === produkId);
+	const kategoriParam = `${produk?.kategori.toLowerCase()}${produk?.kategori === "Dress" ? "es" : "s"
 		}`;
 
 	const { width } = useWindowSize();
 
 	useEffect(() => {
-		setScreenWidth(width);
 
 		if (width <= 576) {
 			setOnMobile(true);
 		} else {
-			setInitialImage(false);
+			setGambarAwal(false);
 			setOnMobile(false);
 		}
 	}, [width]);
@@ -53,109 +44,91 @@ const productDetail = ({ products, users, currentUser, myOrders }) => {
 		if (myOrders && myOrders.length !== 0) {
 			// Check if user can write a review after purchased the product
 			const hasPurchasedItem = await myOrders.map((order) => {
-				if (order.isPaid === true) {
-					return order.cart.some((item) => item.productId === productId);
+				if (order.isBayar === true) {
+					return order.cart.some((item) => item.produkId === produkId);
 				}
 				return false;
 			});
-
-			// If some order contains the purchased product set isPurchase to true
-			if (hasPurchasedItem.includes(true)) {
-				setIsPurchase(true);
-			}
 		}
 
 		// Defined variable
-		const mainImage = document.getElementsByClassName("product-main-img");
-		const sideImage = document.getElementsByClassName("product-side-img");
+		const mainImage = document.getElementsByClassName("produk-main-img");
+		const sideImage = document.getElementsByClassName("produk-side-img");
 
 		// Toggle the first image to show as a main image
 		// when page load at first time on desktop screen
-		if (!initialImage && !onMobile) {
+		if (!gambarAwal && !onMobile) {
 			for (let i = 0; i < mainImage.length; i++) {
 				mainImage[i].classList.remove("toggle-main-img");
 				sideImage[i].classList.remove("toggle-side-img");
 			}
 
 			mainImage[0].classList.add("toggle-main-img");
-			setInitialImage(true);
+			setGambarAwal(true);
 		}
 
 		// Toggle 'toggle-main-img' class for image when user clicked on that side image
-		if (imageEvent) {
+		if (eventGambar) {
 			for (let i = 0; i < mainImage.length; i++) {
 				mainImage[i].classList.remove("toggle-main-img");
 				sideImage[i].classList.remove("toggle-side-img");
 			}
 
 			const currentId =
-				imageEvent.target.parentElement.parentElement.id.slice(-1);
+				eventGambar.target.parentElement.parentElement.id.slice(-1);
 
 			mainImage[currentId].classList.add("toggle-main-img");
 
-			imageEvent.target.parentElement.parentElement.classList.add(
+			eventGambar.target.parentElement.parentElement.classList.add(
 				"toggle-side-img"
 			);
 
 			// Set image event to default
-			setImageEvent(null);
+			setEventGambar(null);
 		}
 
-		// Limit quantity input by locked maximum and minimum from the product countInStock
-		if (quantity > product.countInStock) {
-			setQuantity(product.countInStock);
-		} else if (quantity < 1) {
-			setQuantity(1);
+		// Limit kuantitas input by locked maximum and minimum from the produk jumlahStok
+		if (kuantitas > produk.jumlahStok) {
+			setKuantitas(produk.jumlahStok);
+		} else if (kuantitas < 1) {
+			setKuantitas(1);
 		}
-	}, [product, initialImage, imageEvent, quantity]);
+	}, [produk, gambarAwal, eventGambar, kuantitas]);
 
-	if (imageArray.length === 0 && product) {
-		const filterImages = Object.values(product.images).filter(
-			(image) => image !== null && image !== ""
+	if (gambarArray.length === 0 && produk) {
+		const filterGambar = Object.values(produk.gambarItem).filter(
+			(gambar) => gambar !== null && gambar !== ""
 		);
 
-		setImageArray(filterImages);
+		setGambarArray(filterGambar);
 	}
 
 	useEffect(() => {
-		// Re-evaluate new filter images when the product had changed
-		if (product) {
-			const filterImages = Object.values(product?.images).filter(
-				(image) => image !== null && image !== ""
+		// Re-evaluate new filter gambarItem when the produk had changed
+		if (produk) {
+			const filterGambar = Object.values(produk?.gambarItem).filter(
+				(gambar) => gambar !== null && gambar !== ""
 			);
 
-			setImageArray(filterImages);
-			if (initialImage) {
-				setInitialImage(false);
+			setGambarArray(filterGambar);
+			if (gambarAwal) {
+				setGambarAwal(false);
 			}
 		}
-	}, [product]);
+	}, [produk]);
 
-	const colorSelectedHandler = (color) => {
-		if (color !== null) {
-			setColor(color);
+	const warnaSelectorHandler = (warna) => {
+		if (warna !== null) {
+			setWarna(warna);
 		}
 	};
-
-	const sizeSelectedHandler = (size) => {
-		if (size !== null) {
-			setSize(size);
-		}
-	};
-
-	const couponHandler = (factor) => {
-		if (factor) {
-			setDiscountFactor(factor);
-		}
-	};
-
 	return (
 		<>
 			<Head>
-				<title>{product.title} | Aurapan</title>
+				<title>{produk.title} | Aurapan</title>
 			</Head>
 			<div className="breadcrumb-label">
-				{!product.id || product.id !== productId ? (
+				{!produk.id || produk.id !== produkId ? (
 					<div
 						className="d-flex justify-content-center align-items-center px-0"
 						style={{ marginTop: "80px" }}
@@ -169,37 +142,37 @@ const productDetail = ({ products, users, currentUser, myOrders }) => {
 								<Breadcrumb.Item>Home</Breadcrumb.Item>
 							</Link>
 
-							<Link href={`/products/${categoryParams}`} passHref>
-								<Breadcrumb.Item>{product.category}</Breadcrumb.Item>
+							<Link href={`/produk/${kategoriParam}`} passHref>
+								<Breadcrumb.Item>{produk.kategori}</Breadcrumb.Item>
 							</Link>
 
 							<Link
-								href="/products/[productId]"
-								as={`/products/${product.id}`}
+								href="/produk/[produkId]"
+								as={`/produk/${produk.id}`}
 								passHref
 							>
-								<Breadcrumb.Item>{product.title}</Breadcrumb.Item>
+								<Breadcrumb.Item>{produk.title}</Breadcrumb.Item>
 							</Link>
 						</Breadcrumb>
 
-						<Row id="product-page">
+						<Row id="produk-page">
 							{onMobile ? (
 								<Col className="mb-3">
-									<ProductImageSwiper product={product} />
+									<produkImageSwiper produk={produk} />
 								</Col>
 							) : (
 								<>
 									<Col sm={1} className="mb-3">
-										{imageArray.map((img, index) => (
+										{gambarArray.map((img, index) => (
 											<div
-												className="product-side-img"
+												className="produk-side-img"
 												id={`side-img-${index}`}
 												key={index}
-												onClick={(e) => setImageEvent(e)}
+												onClick={(e) => setEventGambar(e)}
 											>
 												<NextImage
 													src={img}
-													alt={`product_image_${index}`}
+													alt={`produk_image_${index}`}
 													priority={true}
 													quality={30}
 												/>
@@ -208,11 +181,11 @@ const productDetail = ({ products, users, currentUser, myOrders }) => {
 									</Col>
 
 									<Col sm={5} className="mb-3 position-relative">
-										{imageArray.map((img, index) => (
-											<div className="product-main-img" key={index}>
+										{gambarArray.map((img, index) => (
+											<div className="produk-main-img" key={index}>
 												<NextImage
 													src={img}
-													alt={`product_image_${index}`}
+													alt={`produk_image_${index}`}
 													priority={true}
 													quality={75}
 												/>
@@ -224,24 +197,21 @@ const productDetail = ({ products, users, currentUser, myOrders }) => {
 
 							<Col sm={6}>
 								<ListGroup variant="flush" className="mb-3">
-									<ListGroup.Item className="py-0">
-										<Rating value={product.rating} mobile={false} />
+
+									<ListGroup.Item>
+										<h1>{produk.nama}</h1>
 									</ListGroup.Item>
 
 									<ListGroup.Item>
-										<h1>{product.title}</h1>
+										<h1 className="produk-price">$ {produk.price}</h1>
 									</ListGroup.Item>
 
 									<ListGroup.Item>
-										<h1 className="product-price">$ {product.price}</h1>
-									</ListGroup.Item>
-
-									<ListGroup.Item>
-										<h3>Color</h3>
+										<h3>Warna</h3>
 										<div className="my-1 px-0">
-											<ColorSelector
-												product={product}
-												callback={colorSelectedHandler}
+											<warnaSelector
+												produk={produk}
+												callback={warnaSelectorHandler}
 												margin={"5px"}
 												size={"2rem"}
 												flex={"start"}
@@ -250,28 +220,17 @@ const productDetail = ({ products, users, currentUser, myOrders }) => {
 									</ListGroup.Item>
 
 									<ListGroup.Item>
-										<h3>Size</h3>
-										<div className="my-1 px-0">
-											<SizeSelector
-												product={product}
-												width={"35px"}
-												callback={sizeSelectedHandler}
-											/>
-										</div>
-									</ListGroup.Item>
-
-									<ListGroup.Item>
 										<h3>QTY</h3>
-										<QuantitySelector
-											product={product}
-											quantity={quantity}
-											setQuantity={setQuantity}
+										<kuantitasSelector
+											produk={produk}
+											kuantitas={kuantitas}
+											setKuantitas={setKuantitas}
 										/>
 									</ListGroup.Item>
 
 									<ListGroup.Item>
 										<div className="produk-desc my-1 px-0">
-											<p>{product.description}</p>
+											<p>{produk.deskripsi}</p>
 										</div>
 									</ListGroup.Item>
 								</ListGroup>
@@ -285,9 +244,9 @@ const productDetail = ({ products, users, currentUser, myOrders }) => {
 												</Col>
 												<Col>
 													<h6>
-														{product.countInStock > 0
-															? "In Stock"
-															: "Out of Stock"}
+														{produk.jumlahStok > 0
+															? "Ready Stok"
+															: "Stok Habis"}
 													</h6>
 												</Col>
 											</Row>
@@ -296,55 +255,21 @@ const productDetail = ({ products, users, currentUser, myOrders }) => {
 										<ListGroup.Item>
 											<Row>
 												<Col>
-													<h5>Brand:</h5>
+													<h5>Kategori:</h5>
 												</Col>
 												<Col>
-													<h6>{product.brand}</h6>
+													<h6>{produk.kategori}</h6>
 												</Col>
 											</Row>
 										</ListGroup.Item>
-
-										<ListGroup.Item>
-											<Row>
-												<Col>
-													<h5>Category:</h5>
-												</Col>
-												<Col>
-													<h6>{product.category}</h6>
-												</Col>
-											</Row>
-										</ListGroup.Item>
-
-										{product.countInStock > 0 && (
-											<>
-												<ListGroup.Item>
-													<Coupon callback={couponHandler} />
-												</ListGroup.Item>
-											</>
-										)}
+										{produk.jumlahStok}
 
 										<ListGroup.Item className="d-grid">
-											{/* {color === null && size === null ? (
-												<div className="px-0 py-2" style={{ color: "red" }}>
-													Please select color and size option
-												</div>
-											) : color === null && size !== null ? (
-												<div className="px-0 py-2" style={{ color: "red" }}>
-													Please select color option
-												</div>
-											) : color !== null && size === null ? (
-												<div className="px-0 py-2" style={{ color: "red" }}>
-													Please select size option
-												</div>
-											) : null} */}
-
 											<AddToCart
-												product={product}
+												produk={produk}
 												currentUser={currentUser}
-												color={color}
-												size={size}
-												quantity={quantity}
-												discountFactor={discountFactor}
+												warna={warna}
+												kuantitas={kuantitas}
 												lg={onMobile ? true : false}
 											/>
 										</ListGroup.Item>
@@ -356,29 +281,7 @@ const productDetail = ({ products, users, currentUser, myOrders }) => {
 						<Row className="mt-4 pb-5">
 							<Col sm={6} className="mb-3">
 								<div className="px-0 mt-2">
-									<ProductDescription product={product} />
-								</div>
-							</Col>
-
-							<Col sm={6}>
-								<Review
-									product={product}
-									users={users}
-									isPurchase={isPurchase}
-									currentUser={currentUser}
-								/>
-							</Col>
-						</Row>
-
-						<Row className="mt-4 pb-5">
-							<Col sm={12} className="mb-3">
-								<div className="px-0 mt-2">
-									<YouMayAlsoLike
-										products={products}
-										currentUser={currentUser}
-										onMobile={onMobile}
-										screenWidth={screenWidth}
-									/>
+									<deskripsiProduk produk={produk} />
 								</div>
 							</Col>
 						</Row>
