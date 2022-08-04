@@ -1,8 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { Col, Row, Table } from "react-bootstrap";
-
-import ColorSelector from "../common/ColorSelector";
+import warnaSelector from "../common/warnaSelector";
 import CustomTooltip from "../common/CustomTooltip";
 
 const WishList = ({ produkToko }) => {
@@ -35,7 +34,7 @@ const WishList = ({ produkToko }) => {
 								</td>
 								<td>${produk.harga}</td>
 								<td>
-									<ColorSelector
+									<warnaSelector
 										produk={produk}
 										margin={"2px"}
 										size={"1.5rem"}
