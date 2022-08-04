@@ -9,7 +9,7 @@ import NextImage from "../../components/common/NextImage";
 import produkImageSwiper from "../../components/produk/produkImageSwiper"
 import warnaSelector from "../../components/common/warnaSelector";
 import deskripsiProduk from "../../components/produk/deskripsiProduk"
-import AddToCart from "../../components/common/AddToCart";
+import tambahKeranjang from "../../components/common/tambahKeranjang"
 import kuantitasSelector from "../../components/common/kuantitasSelector"
 import useWindowSize from "../../hooks/useWindowSize";
 
@@ -265,7 +265,7 @@ const productDetail = ({ produkToko, users, currentUser, myOrders }) => {
 										{produk.jumlahStok}
 
 										<ListGroup.Item className="d-grid">
-											<AddToCart
+											<tambahKeranjang
 												produk={produk}
 												currentUser={currentUser}
 												warna={warna}
