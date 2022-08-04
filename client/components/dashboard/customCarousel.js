@@ -4,22 +4,22 @@ import { Carousel } from "react-bootstrap";
 
 import Loader from "../common/Loader";
 
-const customCarousel = ({ images, quality }) => {
+const customCarousel = ({ gambarItem, quality }) => {
 	const [index, setIndex] = useState(0);
 	const [loading, setLoading] = useState(true);
 	const [imageArray, setImageArray] = useState([]);
 
 	useEffect(() => {
-		if (images || reload) {
-			setImageArray(images);
+		if (gambarItem || reload) {
+			setImageArray(gambarItem);
 
 			setLoading(false);
 		}
-	}, [images]);
+	}, [gambarItem]);
 
 	const myLoader = ({ src, quality }) => {
 		if (src[0] === "v") {
-			return `https://res.cloudinary.com/thasup/image/upload/${src}`;
+			return `https://res.cloudinary.com/pacemaker/image/upload/${src}`;
 		} else {
 			return `https://www.dropbox.com/s/${src}?raw=1&q=${quality || 50}`;
 		}
@@ -41,12 +41,12 @@ const customCarousel = ({ images, quality }) => {
 			activeIndex={index}
 			onSelect={handleSelect}
 		>
-			{imageArray.map((image, index) => (
+			{imageArray.map((gambar, index) => (
 				<Carousel.Item key={index} className="carousel-produk-item">
 					<Image
 						loader={myLoader}
-						src={image === "" ? "gatmu67f52etjy2/4te4tet.webp" : image}
-						alt={`product image ${index}`}
+						src={gambar === "" ? "gatmu67f52etjy2/4te4tet.webp" : gambar}
+						alt={`gambar produk ${index}`}
 						layout="fill"
 						objectFit="cover"
 						quality={quality}
