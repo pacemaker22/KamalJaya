@@ -4,7 +4,7 @@ import Router from "next/router";
 import Head from "next/head";
 
 import FormContainer from "../components/common/FormContainer";
-import CheckoutSteps from "../components/cart/CheckoutSteps";
+import CheckoutSteps from "../components/cart/checkoutStep";
 
 const pengiriman = ({ currentUser }) => {
 	const [alamat, setAlamat] = useState(null);

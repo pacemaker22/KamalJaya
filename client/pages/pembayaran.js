@@ -3,7 +3,7 @@ import { Button, Col, Form } from "react-bootstrap";
 import Router from "next/router";
 import Head from "next/head";
 
-import CheckoutSteps from "../components/cart/CheckoutSteps";
+import CheckoutSteps from "../components/cart/checkoutStep";
 import FormContainer from "../components/common/FormContainer";
 
 const Pembayaran = ({ currentUser }) => {
