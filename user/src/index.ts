@@ -16,7 +16,7 @@ const start = async () => {
 
   } catch (err) {
     console.error(err);
-  }
+  } 
   const port = 3000;
   app.listen(port, () => {
     console.log(`server user: terhubung ke port ${port}`);
