@@ -20,13 +20,13 @@ app.use(
 );
 app.use(currentUser);
 
-app.use(createOrderRouter);
-app.use(cancelOrderRouter);
-app.use(deliverOrderRouter);
-app.use(getOrderRouter);
-app.use(showAllOrderRouter);
-app.use(showMyOrderRouter);
 app.use(showProdukRouter);
+app.use(showMyOrderRouter);
+app.use(getOrderRouter);
+app.use(deliverOrderRouter);
+app.use(cancelOrderRouter);
+app.use(showAllOrderRouter);
+app.use(createOrderRouter);
 
 
 app.all("*", async (req, res) => {
