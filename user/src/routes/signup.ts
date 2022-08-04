@@ -32,6 +32,11 @@ router.post(
     if (existingUser) {
       throw new BadRequestError("Email telah digunakan");
     }
+
+    if (!foto || foto === ""){
+      foto = `https://joeschmoe.io/api/v1/random`
+    }
+
     const user = User.build({
       email,
       password,
