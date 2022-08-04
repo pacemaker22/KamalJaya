@@ -3,7 +3,7 @@
 FROM node:16-alpine as dependencies
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ic
 
 FROM node:16-alpine as builder
 WORKDIR /app
