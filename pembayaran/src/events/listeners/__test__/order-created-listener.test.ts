@@ -20,8 +20,7 @@ const setup = async () => {
     deskripsi: "Seragam untuk anak SD",
     gambar: "asdasdad",
     warna: "Merah",
-    ukuran: "S,M,L",
-    jumlahStock: 1,
+    jumlahStok: 1,
     diPesan: false,
   });
   await produk.save();
