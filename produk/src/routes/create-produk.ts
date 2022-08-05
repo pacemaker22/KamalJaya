@@ -60,6 +60,7 @@ router.post(
     });
 
     res.status(201).send(produk);
+    console.log(produk);
   }
 );
 
