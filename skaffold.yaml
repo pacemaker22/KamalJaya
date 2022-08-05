@@ -49,3 +49,9 @@ build:
         manual:
           - src: "**/*.js"
             dest: .
+          - src: "**/*.css"
+            dest: .
+          - src: "**/*.jpg"
+            dest: .
+          - src: "**/*.png"
+            dest: .
