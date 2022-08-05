@@ -34,6 +34,7 @@ router.patch(
 
     order.status = OrderStatus.Dibatalkan;
     await order.save();
+    
 
     // publishing an event saying this was cancelled!
     new OrderUpdatedPublisher(natsWrapper.client).publish({
