@@ -10,6 +10,7 @@ export default ({ req }) => {
 					? "https://www.kamaljaya.xyz"
 					: "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",
 			headers: req.headers,
+			withCredentials: true,
 		});
 	} else {
 		// We must be on the browser
