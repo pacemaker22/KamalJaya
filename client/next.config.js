@@ -5,7 +5,7 @@ module.exports = {
 		// your project has ESLint errors.
 		ignoreDuringBuilds: true,
 	},
-	images: {
+	gambarItem: {
 		domains: ["www.dropbox.com", "res.cloudinary.com"],
 		minimumCacheTTL: 86400,
 	},
