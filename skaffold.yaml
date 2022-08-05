@@ -17,6 +17,20 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: pacemaker22/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
+          - src: "**/*.css"
+            dest: .
+          - src: "**/*.jpg"
+            dest: .
+          - src: "**/*.png"
+            dest: .
     - image: pacemaker22/produk
       context: produk
       docker:
@@ -41,17 +55,4 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: pacemaker22/client
-      context: client
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: "**/*.js"
-            dest: .
-          - src: "**/*.css"
-            dest: .
-          - src: "**/*.jpg"
-            dest: .
-          - src: "**/*.png"
-            dest: .
+    
