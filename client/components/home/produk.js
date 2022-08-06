@@ -5,7 +5,7 @@ import Image from "next/image";
 import tambahKeranjang from "../common/tambahKeranjang";
 import warnaSelector from "../common/warnaSelector"
 
-const produk = ({
+const Produk = ({
 	onMobile,
 	produk,
 	currentUser,
@@ -160,4 +160,4 @@ const produk = ({
 	);
 };
 
-export default produk;
+export default Produk;
