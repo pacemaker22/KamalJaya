@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
-import produk from '../components/home/produk'
+import Produk from '../components/home/produk'
 import ImageSwiper from '../components/common/ImageSwiper';
 import useWindowSize from "../hooks/useWindowSize";
 
@@ -13,7 +13,7 @@ import AdsBannerSrc5 from "../public/asset/ads-banner/ads_banner_5.png";
 
 const adsBanners = [AdsBannerSrc1, AdsBannerSrc2, AdsBannerSrc3, AdsBannerSrc4, AdsBannerSrc5]
 
-const Home = ({ produkToko, currentUser }) => {
+const Home = ({ produk, currentUser }) => {
 	const [onMobile, setOnMobile] = useState(false);
 
 	const { width } = useWindowSize();
@@ -32,11 +32,11 @@ const Home = ({ produkToko, currentUser }) => {
 				<ImageSwiper images={adsBanners} />
 			</Row>
 			<Row className="mx-0">
-				{produkToko.map((item) => (
+				{produk.map((item) => (
 					<Col key={item.id} xs={6} md={4} xl={3} className="p-0">
-						<produk
+						<Produk
 							onMobile={onMobile}
-							produkToko={item}
+							produk={item}
 							currentUser={currentUser}
 						/>
 					</Col>
