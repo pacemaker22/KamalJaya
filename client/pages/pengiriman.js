@@ -52,7 +52,7 @@ const pengiriman = ({ currentUser }) => {
 		};
 
 		if (onSubmit) {
-			localStorage.setItem("shippingAddress", JSON.stringify(shippingAddress));
+			localStorage.setItem("alamatKirim", JSON.stringify(alamatKirim));
 
 			setOnSubmit(false);
 			Router.push("/payment");

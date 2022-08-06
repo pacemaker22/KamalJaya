@@ -334,7 +334,7 @@ const OrderPage = ({ currentUser, orders, myOrders }) => {
 																	setLoadingPay(true);
 																	payOrder({ token: id });
 																}}
-																stripeKey="pk_test_51KYCbpCqypc6uabtXBYVwjkCQxYJ02VlTebqSllPb0Kei5mvKN1brmzIgEeZK371eoKkh7rJxX70lr7wet0VfZjb00PDUgCK7c"
+																stripeKey="pk_test_4v6HvllBjUGazfK45zHCjY9o"
 																amount={order.hargaTotal * 100}
 																email={currentUser.email}
 															/>
