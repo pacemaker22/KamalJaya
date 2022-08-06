@@ -27,15 +27,6 @@ export default ({ url, method, body, onSuccess }) => {
             </ListGroup>
           </Alert>
         );
-      } else {
-        setErrors(
-          <Alert variant="danger" className="mt-3 mb-0">
-            <Alert.Heading>Ooops....</Alert.Heading>
-            <ListGroup className="my-0">
-              <ListGroup.Item>500 Internal Server Error</ListGroup.Item>
-            </ListGroup>
-          </Alert>
-        );
       }
     }
   };
