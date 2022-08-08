@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import mobileNavbar from "./mobileNavbar";
+import mobileNavbar from "./mobileNavbar"
 import desktopNavbar from "./desktopNavbar";
 import useWindowSize from "../../hooks/useWindowSize";
 
-const Header = ({ currentUser, products, bestseller }) => {
+const Header = ({ currentUser, produk }) => {
 	const [numItems, setNumItems] = useState(0);
 	const [showNotification, setShowNotification] = useState(false);
 	const [onMobile, setOnMobile] = useState(true);
@@ -12,7 +12,7 @@ const Header = ({ currentUser, products, bestseller }) => {
 	const { width } = useWindowSize();
 
 	// All category on the website
-	const productCategories = ["Top", "Bottom", "Dress", "Set", "Coat"];
+	const produkKategori = ["Top", "Bottom", "Dress", "Set", "Coat"];
 
 	useEffect(() => {
 		// Update cart item number every 0.1 second
@@ -45,16 +45,15 @@ const Header = ({ currentUser, products, bestseller }) => {
 			currentUser={currentUser}
 			numItems={numItems}
 			showNotification={showNotification}
-			productCategories={productCategories}
+			productCategories={produkKategori}
 		/>
 	) : (
 		<desktopNavbar
 			currentUser={currentUser}
-			produkToko={produkToko}
-			bestseller={bestseller}
+			produk={produk}
 			numItems={numItems}
 			showNotification={showNotification}
-			productCategories={productCategories}
+			productCategories={produkKategori}
 		/>
 	);
 };
