@@ -45,7 +45,7 @@ const Header = ({ currentUser, produk }) => {
 			currentUser={currentUser}
 			numItems={numItems}
 			showNotification={showNotification}
-			productCategories={produkKategori}
+			produkKategori={produkKategori}
 		/>
 	) : (
 		<desktopNavbar
@@ -53,7 +53,7 @@ const Header = ({ currentUser, produk }) => {
 			produk={produk}
 			numItems={numItems}
 			showNotification={showNotification}
-			productCategories={produkKategori}
+			produkKategori={produkKategori}
 		/>
 	);
 };
