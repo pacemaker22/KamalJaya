@@ -8,11 +8,12 @@ import Message from "../common/Message";
 const editAlamat = ({ user }) => {
 	const [alamat, setAlamat] = useState("");
 	const [kota, setKota] = useState("");
-	const [kodePos, setkodePos] = useState("");
+	const [kodePos, setKodePos] = useState("");
+
 	const [message, setMessage] = useState(null);
 	const [showErrors, setShowErrors] = useState(false);
 	const [loadingUpdate, setLoadingUpdate] = useState(false);
-	const [updateSukses, setupdateSukses] = useState(false);
+	const [updateSuccess, setUpdateSuccess] = useState(false);
 
 	const { doRequest, errors } = useRequest({
 		url: `/api/users/${user.id}`,
@@ -20,26 +21,26 @@ const editAlamat = ({ user }) => {
 		body: {
 			email: user.email,
 			isAdmin: user.isAdmin,
-			nama: user.nama,
-			jsonShippingalamat: JSON.stringify({
+			nama: user.name,
+			foto: user.foto,
+			jsonAlamatKirim: JSON.stringify({
 				alamat: alamat,
 				kota: kota,
 				kodePos: kodePos,
 			}),
 		},
 		onSuccess: (user) => {
-			setupdateSukses(true);
+			setUpdateSuccess(true);
 			Router.push("/dashboard");
 		},
 	});
 
 	useEffect(() => {
-		if (user.shippingalamat || updateSukses) {
-			setAlamat(user.shippingalamat?.alamat);
-			setKota(user.shippingalamat?.kota);
-			setkodePos(user.shippingalamat?.kodePos);
-			setCountry(user.shippingalamat?.country);
-		}
+		if (user.alamatKirim || updateSuccess) {
+			setAlamat(user.alamatKirim?.alamat);
+			setKota(user.alamatKirim?.kota);
+			setKodePos(user.alamatKirim?.kodePos);
+			}
 
 		if (errors) {
 			setLoadingUpdate(false);
@@ -47,10 +48,10 @@ const editAlamat = ({ user }) => {
 		}
 
 		setTimeout(() => {
-			setupdateSukses(false);
+			setUpdateSuccess(false);
 			setLoadingUpdate(false);
 		}, 1000);
-	}, [user, updateSukses, errors]);
+	}, [user, updateSuccess, errors]);
 
 	const submitHandler = (e) => {
 		e.preventDefault();
@@ -66,14 +67,14 @@ const editAlamat = ({ user }) => {
 			<Row>
 				{message && <Message variant="danger">{message}</Message>}
 				{showErrors ? errors : null}
-				{updateSukses && <Message variant="success">alamat Updated</Message>}
+				{updateSuccess && <Message variant="success">ubah alamat pengiriman</Message>}
 
 				<Col>
 					<Form.Group controlId="alamat" className="mb-3">
 						<Form.Label>Alamat</Form.Label>
 						<Form.Control
 							type="text"
-							placeholder="Masukan alamat"
+							placeholder="Masukan Alamat"
 							value={alamat}
 							onChange={(e) => setAlamat(e.target.value)}
 						></Form.Control>
@@ -83,19 +84,19 @@ const editAlamat = ({ user }) => {
 						<Form.Label>Kota</Form.Label>
 						<Form.Control
 							type="text"
-							placeholder="Masukan kota"
+							placeholder="Masukkan kota"
 							value={kota}
 							onChange={(e) => setKota(e.target.value)}
 						></Form.Control>
 					</Form.Group>
 
-					<Form.Group controlId="kodePos" className="my-3">
+					<Form.Group controlId="kodepos" className="my-3">
 						<Form.Label>Kode Pos</Form.Label>
 						<Form.Control
 							type="text"
 							placeholder="Masukan Kode Pos"
 							value={kodePos}
-							onChange={(e) => setkodePos(e.target.value)}
+							onChange={(e) => setKodePos(e.target.value)}
 						></Form.Control>
 					</Form.Group>
 					<Button type="submit" variant="dark">

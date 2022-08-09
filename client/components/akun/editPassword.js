@@ -5,15 +5,16 @@ import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
 import useRequest from "../../hooks/use-request";
 import Message from "../common/Message";
 
-const editPassword = ({ user }) => {
+const EditSecurity = ({ user }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 	const [confirmNewPassword, setConfirmNewPassword] = useState("");
+
 	const [message, setMessage] = useState(null);
 	const [showErrors, setShowErrors] = useState(false);
 	const [loadingUpdate, setLoadingUpdate] = useState(false);
-	const [updateSuccess, setUpdateSukses] = useState(false);
+	const [updateSuccess, setUpdateSuccess] = useState(false);
 
 	const { doRequest, errors } = useRequest({
 		url: `/api/users/${user.id}`,
@@ -23,10 +24,10 @@ const editPassword = ({ user }) => {
 			isAdmin: user.isAdmin,
 			nama: user.nama,
 			foto: user.foto,
-			jsonAlamatKirim: user.jsonAlamatKirim,
+			jsonAlamatKirim: user.alamatKirim,
 		},
 		onSuccess: () => {
-			setUpdateSukses(true);
+			setUpdateSuccess(true);
 			Router.push("/dashboard");
 		},
 	});
@@ -45,7 +46,7 @@ const editPassword = ({ user }) => {
 		}
 
 		setTimeout(() => {
-			setUpdateSukses(false);
+			setUpdateSuccess(false);
 			setLoadingUpdate(false);
 		}, 1000);
 	}, [user, updateSuccess, errors]);
@@ -57,7 +58,7 @@ const editPassword = ({ user }) => {
 		setLoadingUpdate(true);
 
 		if (newPassword !== confirmNewPassword) {
-			setMessage("Password tidak sama");
+			setMessage("Password do not match");
 			setLoadingUpdate(false);
 		} else if (newPassword !== "") {
 			doRequest({ password: password, newPassword: newPassword });
@@ -71,44 +72,44 @@ const editPassword = ({ user }) => {
 			<Row>
 				{message && <Message variant="danger">{message}</Message>}
 				{showErrors ? errors : null}
-				{updateSuccess && <Message variant="success">update profile</Message>}
+				{updateSuccess && <Message variant="success">Profile Updated</Message>}
 
 				<Col>
 					<Form.Group controlId="email" className="mb-3">
-						<Form.Label>Email address</Form.Label>
+						<Form.Label>Alamat Email</Form.Label>
 						<Form.Control
 							type="email"
-							placeholder="Masukkan Alamat email"
+							placeholder="Masukan Alamat Email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 						></Form.Control>
 					</Form.Group>
 
 					<Form.Group controlId="password" className="my-3">
-						<Form.Label>Password</Form.Label>
+						<Form.Label>Password Lama</Form.Label>
 						<Form.Control
 							type="password"
-							placeholder="masukan password"
+							placeholder="Masukkan Password Lama"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 						></Form.Control>
 					</Form.Group>
 
-					<Form.Group controlId="newPassword" className="my-3">
-						<Form.Label>New Password</Form.Label>
+					<Form.Group controlId="passwordBaru" className="my-3">
+						<Form.Label>Password Baru</Form.Label>
 						<Form.Control
 							type="password"
-							placeholder="masukan password baru anda"
+							placeholder="Masukkan Password anda yang baru"
 							value={newPassword}
 							onChange={(e) => setNewPassword(e.target.value)}
 						></Form.Control>
 					</Form.Group>
 
-					<Form.Group controlId="confirmNewPassword" className="my-3">
-						<Form.Label>Confirm New Password</Form.Label>
+					<Form.Group controlId="konfirmasiPasswordBaru" className="my-3">
+						<Form.Label>Konfirmasi password baru</Form.Label>
 						<Form.Control
 							type="password"
-							placeholder="konfirmasi password baru anda"
+							placeholder="Ulangi password baru anda"
 							value={confirmNewPassword}
 							onChange={(e) => setConfirmNewPassword(e.target.value)}
 						></Form.Control>
@@ -148,4 +149,4 @@ const editPassword = ({ user }) => {
 	);
 };
 
-export default editPassword;
+export default EditSecurity;
