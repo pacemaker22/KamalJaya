@@ -7,7 +7,7 @@ const buildClient = ({ req }) => {
 
     return axios.create({
       baseURL:
-        "http://www.kamaljaya.com",
+        "http://www.kamaljaya.xyz",
       headers: req.headers,
     }); 
   } else {
