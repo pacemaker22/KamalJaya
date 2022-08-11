@@ -2,13 +2,13 @@ import Link from 'next/link';
 import buildClient from '../api/build-client';
 
 const LandingPage = ({ currentUser, produk }) => {
-  const produkList = produkToko.map((produk) => {
+  const produkList = produk.map((produkToko) => {
     return (
-      <tr key={produk.id}>
-        <td>{produk.nama}</td>
-        <td>{produk.harga}</td>
+      <tr key={produkToko.id}>
+        <td>{produkToko.nama}</td>
+        <td>{produkToko.harga}</td>
         <td>
-          <Link href='/produk/[produkId]' as={`produk/${produk.id}`}>
+          <Link href='/produk/[produkId]' as={`produk/${produkToko.id}`}>
             <a>Lihat</a>
           </Link>
         </td>
@@ -32,7 +32,7 @@ const LandingPage = ({ currentUser, produk }) => {
   )
 };
 
-LandingPage.getInitialProps = async (context,client, currentUser) => {
+LandingPage.getInitialProps = async (context, client, currentUser) => {
   const { data } = await client.get('/api/produk')
   return { produk: data };
 }
