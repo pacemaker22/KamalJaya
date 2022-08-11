@@ -1,6 +1,7 @@
 import express from "express";
 import "express-async-errors";
 import cookieSession from "cookie-session";
+import { json } from 'body-parser';
 import { NotFoundError, errorHandler, currentUser } from "@kjbuku/common";
 import { createOrderRouter } from "./routes/create-order";
 import { cancelOrderRouter } from "./routes/cancel-order";
@@ -12,7 +13,7 @@ import { showProdukRouter } from "./routes/show-produk";
 
 const app = express();
 app.set("trust proxy", true);
-app.use(express.json());
+app.use(json());
 app.use(
 	cookieSession({
 		signed: false,
