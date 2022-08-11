@@ -13,7 +13,7 @@ interface produkAttrs {
   harga: number;
   userId: string;
   gambarItem: GambarInterface;
-  warna?: string;
+  warna: string;
   kategori: string;
   deskripsi: string;
   jumlahStok: number;
