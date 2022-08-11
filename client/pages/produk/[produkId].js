@@ -1,12 +1,12 @@
 import Router from 'next/router';
 import useRequest from '../../hooks/use-request';
 
-const getProduk = ({ produkToko }) => {
+const getProduk = ({ produk }) => {
   const { doRequest, errors } = useRequest({
     url: '/api/orders',
     method: 'post',
     body: {
-      produkId: produkToko.id,
+      produkId: produk.id,
     },
     onSuccess: (order) =>
       Router.push('/orders/[orderId]', `/orders/${order.id}`),
@@ -14,8 +14,8 @@ const getProduk = ({ produkToko }) => {
 
   return (
     <div>
-      <h1>{produkToko.nama}</h1>
-      <h4>Harga: {produkToko.harga}</h4>
+      <h1>{produk.nama}</h1>
+      <h4>Harga: {produk.harga}</h4>
       {errors}
       <button onClick={() => doRequest()} className="btn btn-primary">
         Beli      
@@ -28,7 +28,7 @@ getProduk.getInitialProps = async (context, client) => {
   const { produkId } = context.query;
   const { data } = await client.get(`/api/produk/${produkId}`);
 
-  return { produkToko: data };
+  return { produk: data };
 };
 
 export default getProduk;
