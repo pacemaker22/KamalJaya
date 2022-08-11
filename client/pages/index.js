@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import buildClient from '../api/build-client';
 
 const LandingPage = ({ currentUser, produk }) => {
   const produkList = produk.map((produkToko) => {
@@ -8,7 +7,7 @@ const LandingPage = ({ currentUser, produk }) => {
         <td>{produkToko.nama}</td>
         <td>{produkToko.harga}</td>
         <td>
-          <Link href='/produk/[produkId]' as={`produk/${produkToko.id}`}>
+          <Link href='/produk/[produkId]' as={`/produk/${produkToko.id}`}>
             <a>Lihat</a>
           </Link>
         </td>
