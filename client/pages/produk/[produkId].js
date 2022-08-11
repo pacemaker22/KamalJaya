@@ -14,8 +14,8 @@ const getProduk = ({ produkToko }) => {
 
   return (
     <div>
-      <h1>{produk.nama}</h1>
-      <h4>produk: {produk.harga}</h4>
+      <h1>{produkToko.nama}</h1>
+      <h4>produk: {produkToko.harga}</h4>
       {errors}
       <button onClick={() => doRequest()} className="btn btn-primary">
         Purchase
