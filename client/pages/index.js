@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
-const LandingPage = ({ currentUser, produk }) => {
-  const produkList = produk.map((produkToko) => {
+const LandingPage = ({ currentUser, produkToko }) => {
+  const produkList = produkToko.map((produk) => {
     return (
-      <tr key={produkToko.id}>
-        <td>{produkToko.nama}</td>
-        <td>{produkToko.harga}</td>
+      <tr key={produk.id}>
+        <td>{produk.nama}</td>
+        <td>{produk.harga}</td>
         <td>
-          <Link href='/produk/[produkId]' as={`/produk/${produkToko.id}`}>
+          <Link href='/produk/[produkId]' as={`/produk/${produk.id}`}>
             <a>Lihat</a>
           </Link>
         </td>
