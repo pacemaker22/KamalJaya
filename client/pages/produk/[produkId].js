@@ -24,7 +24,7 @@ const getProduk = ({ produkToko }) => {
   );
 };
 
-TicketShow.getInitialProps = async (context, client) => {
+getProduk.getInitialProps = async (context, client) => {
   const { produkId } = context.query;
   const { data } = await client.get(`/api/produk/${produkId}`);
 
