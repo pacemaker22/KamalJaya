@@ -15,10 +15,10 @@ const getProduk = ({ produkToko }) => {
   return (
     <div>
       <h1>{produkToko.nama}</h1>
-      <h4>produk: {produkToko.harga}</h4>
+      <h4>Harga: {produkToko.harga}</h4>
       {errors}
       <button onClick={() => doRequest()} className="btn btn-primary">
-        Purchase
+        Beli      
       </button>
     </div>
   );
@@ -28,7 +28,7 @@ getProduk.getInitialProps = async (context, client) => {
   const { produkId } = context.query;
   const { data } = await client.get(`/api/produk/${produkId}`);
 
-  return { produk: data };
+  return { produkToko: data };
 };
 
 export default getProduk;
