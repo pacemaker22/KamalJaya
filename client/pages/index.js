@@ -37,6 +37,6 @@ const LandingPage = ({ currentUser, produkToko }) => {
 
 LandingPage.getInitialProps = async (context, client, currentUser) => {
   const { data } = await client.get('/api/produk')
-  return { produk: data };
+  return { produkToko: data };
 }
 export default LandingPage;
