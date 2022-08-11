@@ -16,8 +16,6 @@ spec:
         - name: order
           image: pacemaker22/order
           env:
-            - name: MONGO_URI
-              value: 'mongodb://order-mongo-srv:27017/order'
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
@@ -26,6 +24,8 @@ spec:
               value: "http://nats-service:4222"
             - name: NATS_CLUSTER_ID
               value: kamaljaya
+            - name: MONGO_URI
+              value: 'mongodb://order-mongo-srv:27017/order'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
