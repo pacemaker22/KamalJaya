@@ -6,7 +6,10 @@ const getProduk = ({ produk }) => {
     url: '/api/orders',
     method: 'post',
     body: {
-      produkId: produk.id,
+      jsonCartItems,
+      jsonAlamatKirim,
+      jsonMetodePembayaran
+
     },
     onSuccess: (order) =>
       Router.push('/orders/[orderId]', `/orders/${order.id}`),
