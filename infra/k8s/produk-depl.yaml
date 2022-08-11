@@ -20,12 +20,12 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-            - name: MONGO_URI
-              value: 'mongodb://produk-mongo-service:27017/produk'
             - name: NATS_URL
               value: "http://nats-service:4222"
             - name: NATS_CLUSTER_ID
               value: kamaljaya
+            - name: MONGO_URI
+              value: 'mongodb://produk-mongo-service:27017/produk'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

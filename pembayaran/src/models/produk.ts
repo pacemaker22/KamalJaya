@@ -43,7 +43,7 @@ interface ProdukDoc extends mongoose.Document {
   updatedAt: string;
 }
 
-const produkSchema = new mongoose.Schema<ProdukDoc, ProdukModel>(
+const produkSchema = new mongoose.Schema(
   {
     nama: {
       type: String,
