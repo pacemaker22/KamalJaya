@@ -21,12 +21,6 @@ interface produkAttrs {
 }
 
 // An interface that describes the properties
-// that a produk Model has
-interface ProdukModel extends mongoose.Model<ProdukDoc> {
-  build(attrs: produkAttrs): ProdukDoc;
-}
-
-// An interface that describes the properties
 // that a produk Document has
 interface ProdukDoc extends mongoose.Document {
   nama: string;
@@ -98,6 +92,11 @@ const produkSchema = new mongoose.Schema<ProdukDoc, ProdukModel>(
     timestamps: true,
   }
 );
+
+interface ProdukModel extends mongoose.Model<ProdukDoc> {
+  build(attrs: produkAttrs): ProdukDoc;
+}
+
 
 produkSchema.set("versionKey", "version");
 produkSchema.plugin(updateIfCurrentPlugin);
