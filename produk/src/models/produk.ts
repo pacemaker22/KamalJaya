@@ -22,6 +22,11 @@ interface produkAttrs {
 
 // An interface that describes the properties
 // that a produk Document has
+
+interface ProdukModel extends mongoose.Model<ProdukDoc> {
+  build(attrs: produkAttrs): ProdukDoc;
+}
+
 interface ProdukDoc extends mongoose.Document {
   nama: string;
   harga: number;
@@ -38,7 +43,7 @@ interface ProdukDoc extends mongoose.Document {
   updatedAt: string;
 }
 
-const produkSchema = new mongoose.Schema<ProdukDoc, ProdukModel>(
+const produkSchema = new mongoose.Schema(
   {
     nama: {
       type: String,
@@ -92,10 +97,6 @@ const produkSchema = new mongoose.Schema<ProdukDoc, ProdukModel>(
     timestamps: true,
   }
 );
-
-interface ProdukModel extends mongoose.Model<ProdukDoc> {
-  build(attrs: produkAttrs): ProdukDoc;
-}
 
 
 produkSchema.set("versionKey", "version");
