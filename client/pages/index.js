@@ -6,6 +6,10 @@ const LandingPage = ({ currentUser, produkToko }) => {
       <tr key={produk.id}>
         <td>{produk.nama}</td>
         <td>{produk.harga}</td>
+        <td>{produk.jumlahStok}</td>
+        <td>{produk.kategori}</td>
+        <td>{produk.deskripsi}</td>
+        <td>{produk.gambar1}</td>
         <td>
           <Link href='/produk/[produkId]' as={`/produk/${produk.id}`}>
             <a>Lihat</a>
