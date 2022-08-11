@@ -5,7 +5,7 @@ import { OrderCreatedListener } from "./events/listeners/OrderCreatedListener";
 import { natsWrapper } from "./NatsWrapper";
 
 const start = async () => {
-  console.log("Starting...");
+  console.log("Mulai...");
   if (!process.env.JWT_KEY) {
     throw new Error("JWT_KEY harus diisi");
   }
