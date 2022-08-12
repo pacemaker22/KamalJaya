@@ -16,6 +16,8 @@ spec:
         - name: produk
           image: pacemaker22/produk
           env:
+            - name: MONGO_URI
+              value: "mongodb://produk-mongo-service:27017/produk"
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
@@ -24,8 +26,6 @@ spec:
               value: "http://nats-service:4222"
             - name: NATS_CLUSTER_ID
               value: kamaljaya
-            - name: MONGO_URI
-              value: 'mongodb://produk-mongo-service:27017/produk'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
