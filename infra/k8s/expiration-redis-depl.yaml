@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: expiration-redis-depl
 spec:
-  replicas:
+  replicas: 1
   selector:
     matchLabels:
       app: expiration-redis
