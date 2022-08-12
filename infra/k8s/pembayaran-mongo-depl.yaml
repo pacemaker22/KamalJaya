@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pembayaran-mongo-depl
 spec:
-  replicas:
+  replicas: 1
   selector:
     matchLabels:
       app: pembayaran-mongo
