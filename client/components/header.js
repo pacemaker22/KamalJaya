@@ -5,7 +5,7 @@ export default ({ currentUser }) => {
     !currentUser && { label: 'Daftar', href: '/user/daftar' },
     !currentUser && { label: 'Masuk', href: '/user/masuk' },
     currentUser && { label: 'Jual Produk', href: '/produk/buatDaftarProduk' },
-    currentUser && { label: 'My Orders', href: '/orders' },
+    currentUser && { label: 'My Orders', href: '/order' },
     currentUser && { label: 'Keluar', href: '/user/keluar' },
   ]
     .filter((linkConfig) => linkConfig)
