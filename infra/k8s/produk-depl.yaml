@@ -17,7 +17,7 @@ spec:
           image: pacemaker22/produk
           env:
             - name: MONGO_URI
-              value: "mongodb://produk-mongo-service:27017/produk"
+              value: 'mongodb://produk-mongo-service:27017/produk'
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:

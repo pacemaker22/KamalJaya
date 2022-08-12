@@ -8,7 +8,7 @@ import { ProdukUpdatedListener } from "./events/listeners/ProdukUpdatedListener"
 import { natsWrapper } from "./NatsWrapper";
 
 const start = async () => {
-  console.log("Starting...");
+  console.log("Memulai...");
   if (!process.env.JWT_KEY) {
     throw new Error("JWT_KEY tidak ditemukan");
   }

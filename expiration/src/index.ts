@@ -2,7 +2,7 @@ import { natsWrapper } from "./NatsWrapper";
 import { OrderCreatedListener } from "./events/listeners/OrderCreatedListener";
 
 const start = async () => {
-  console.log("Starting...");
+  console.log("Memulai...");
   if (!process.env.NATS_CLIENT_ID) {
     throw new Error("NATS_CLIENT_ID harus diisi");
   }

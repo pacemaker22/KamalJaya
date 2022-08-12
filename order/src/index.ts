@@ -7,7 +7,7 @@ import { ExpirationCompletedListener } from "./events/listeners/ExpirationComple
 import { PembayaranCreatedListener } from "./events/listeners/PembayaranCreatedListener";
 
 const start = async () => {
-  console.log("Starting...");
+  console.log("Memulai...");
   if (!process.env.JWT_KEY) {
     throw new Error("JWT_KEY harus diisi");
   }
@@ -52,7 +52,7 @@ const start = async () => {
   }
   const port = 3000;
   app.listen(port, () => {
-    console.log(`Server Produk terhubung ke: ${port}`);
+    console.log(`Server Order terhubung ke: ${port}`);
   });
 };
 
